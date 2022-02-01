@@ -1,0 +1,81 @@
+.signIn{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 40px;
+}
+
+.signIn__header__img{
+    width: 150px;
+    margin-bottom: 30px;
+}
+
+
+.signIn__text__and__form{
+    width: 300px;
+    margin: 0 auto;
+}
+
+.signIn__header__h1{
+    margin-bottom: 5px;
+    font-size: 2.5rem;
+}
+
+.signIn__header__para{
+    margin-bottom: 30px;
+}
+
+.signIn__form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.signIn__form__input__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    border: 1px solid rgba(128, 128, 128, 0.384);
+    border-radius: 5px;
+}
+
+.signIn__form__pwd__btn{
+    border: none;
+    background-color: transparent;
+    color: var(--main-blue);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.signIn__form__input{
+    border: none;
+    font-size: 1.3rem;
+    padding: 15px 0;
+}
+
+.signIn__form__input:focus{
+    outline: none;
+}
+
+.signIn__form__para{
+    color: var(--main-blue);
+    font-size: 1.3rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.signIn__form__btn{
+    border: none;
+    background-color: var(--main-blue);
+    padding: 15px 0;
+    border-radius: 25px;
+    color: var(--neutral-white);
+    cursor: pointer;
+}
+
+.signIn__register__link{
+    font-size: 1.3rem;
+    text-align: center;
+    margin-top: 120px;
+}
