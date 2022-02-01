@@ -1,4 +1,5 @@
-<svg id="hero-learning-home" xmlns="http://www.w3.org/2000/svg" width="850" height="680" viewBox="0 0 850 680">
+<svg id="hero-learning-home"
+  xmlns="http://www.w3.org/2000/svg" width="850" height="680" viewBox="0 0 850 680">
   <g>
     <path d="M424.575,8.509c230.256,0,416.916,186.66,416.916,416.916H424.575Z" style="fill: #fbf1e2"/>
     <g>
