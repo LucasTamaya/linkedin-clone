@@ -23,6 +23,7 @@ li, ul{
 
 a{
     font-size: 1.4rem;
+    color: var(--main-blue);
 }
 
 p{

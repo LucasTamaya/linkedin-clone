@@ -2,11 +2,12 @@ import Head from "next/head";
 import styles from "../styles/Dashboard.module.css";
 import Link from "next/link";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ExploreIcon from '@mui/icons-material/Explore';
-import PeopleIcon from '@mui/icons-material/People';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
-import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
-export default function Dashboard() {
+import ExploreIcon from "@mui/icons-material/Explore";
+import PeopleIcon from "@mui/icons-material/People";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+
+export default function Landing() {
   return (
     <>
       <Head>
@@ -22,24 +23,26 @@ export default function Dashboard() {
         />
 
         <nav className={styles.header__navbar}>
-            <ul className={styles.header__navbar__items__container}>
-              <li className={styles.header__navbar__item}>
-                <ExploreIcon className={styles.header__navbar__item__icon}/>
-                <p className={styles.header__navbar__item__para}>Discorver</p>
-              </li>
-              <li className={styles.header__navbar__item}>
-                <PeopleIcon className={styles.header__navbar__item__icon}/>
-                <p className={styles.header__navbar__item__para}>People</p>
-              </li>
-              <li className={styles.header__navbar__item}>
-                <LiveTvIcon className={styles.header__navbar__item__icon}/>
-                <p className={styles.header__navbar__item__para}>Learning</p>
-              </li>
-              <li className={styles.header__navbar__item}>
-                <BusinessCenterIcon className={styles.header__navbar__item__icon}/>
-                <p className={styles.header__navbar__item__para}>Jobs</p>
-              </li>
-            </ul>
+          <ul className={styles.header__navbar__items__container}>
+            <li className={styles.header__navbar__item}>
+              <ExploreIcon className={styles.header__navbar__item__icon} />
+              <p className={styles.header__navbar__item__para}>Discorver</p>
+            </li>
+            <li className={styles.header__navbar__item}>
+              <PeopleIcon className={styles.header__navbar__item__icon} />
+              <p className={styles.header__navbar__item__para}>People</p>
+            </li>
+            <li className={styles.header__navbar__item}>
+              <LiveTvIcon className={styles.header__navbar__item__icon} />
+              <p className={styles.header__navbar__item__para}>Learning</p>
+            </li>
+            <li className={styles.header__navbar__item}>
+              <BusinessCenterIcon
+                className={styles.header__navbar__item__icon}
+              />
+              <p className={styles.header__navbar__item__para}>Jobs</p>
+            </li>
+          </ul>
         </nav>
 
         <Link href="/sign-in" className={styles.header__link}>
