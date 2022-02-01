@@ -1,8 +1,23 @@
 import styles from "../styles/Register.module.css";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+const axios = require("axios");
 
 const Register = () => {
+  // variable afin de récupérer les données de l'utilisateur
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+  // envoit la data à notre API
+  const sendData = () => {
+    axios.post("http://localhost:3000/api/auth/register", {
+      email: email,
+      name: name,
+      password: password,
+    });
+  };
+
   const [viewPassword, setViewPassword] = useState(false);
   const [btnPassword, setBtnPassword] = useState("show");
   const input = useRef();
@@ -40,6 +55,7 @@ const Register = () => {
               type="email"
               placeholder="Email or Phone"
               className={styles.register__form__input}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className={styles.register__form__input__container}>
@@ -47,6 +63,7 @@ const Register = () => {
               type="text"
               placeholder="Name"
               className={styles.register__form__input}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className={styles.register__form__input__container}>
@@ -55,6 +72,7 @@ const Register = () => {
               type="password"
               placeholder="Password (6 or more characters)"
               className={styles.register__form__input}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <button
               type="button"
@@ -64,7 +82,11 @@ const Register = () => {
               {btnPassword}
             </button>
           </div>
-          <button type="submit" className={styles.register__form__btn}>
+          <button
+            type="submit"
+            className={styles.register__form__btn}
+            onClick={sendData}
+          >
             Continue
           </button>
         </form>

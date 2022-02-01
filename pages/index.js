@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../styles/Dashboard.module.css";
+import styles from "../styles/Landing.module.css";
 import Link from "next/link";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ExploreIcon from "@mui/icons-material/Explore";
