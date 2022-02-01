@@ -50,7 +50,7 @@ export default function Dashboard() {
       <main className={styles.mainDashboard}>
         <div className={styles.mainDashboard__text}>
           <h1 className={styles.mainDashboard__h1}>
-            Welcome to your professional community
+            <span>Welcome to your</span> <span>professional community</span>
           </h1>
           <div className={styles.mainDashboard__item}>
             <h2 className={styles.mainDashboard__h2}>Search for a job</h2>
