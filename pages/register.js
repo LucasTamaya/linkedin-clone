@@ -1,42 +1,59 @@
 import styles from "../styles/Register.module.css";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 const axios = require("axios");
 
 const Register = () => {
-  // variable afin de récupérer les données de l'utilisateur
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  // schema de validation de notre formulaire avec gestion d'erreurs inclus
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("You must enter a valid email address")
+      .required("You must enter your email address"),
+    name: Yup.string().required("You must enter your name"),
+    password: Yup.string()
+      .min(6, "This password is too short")
+      .required("You must enter a password"),
+  }).required();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema), //on indique à react-hook-form d'utiliser notre validationSchema afin de traiter les erreurs
+  });
+
+  const onSubmitForm = (data) => {
+    console.log(data);
+  };
 
   // envoit la data à notre API
-  const sendData = () => {
-    axios.post("http://localhost:3000/api/auth/register", {
-      email: email,
-      name: name,
-      password: password,
-    });
-  };
+  // const sendData = (e) => {
+  //   e.preventDefault();
+  //   axios.post("http://localhost:3000/api/auth/register", {
+  //     email: email,
+  //     name: name,
+  //     password: password,
+  //   });
+  // };
 
   const [viewPassword, setViewPassword] = useState(false);
   const [btnPassword, setBtnPassword] = useState("show");
-  const input = useRef();
 
   //   fonction qui permet de masquer ou de révéler le mot de passe lorsqu'on le tape dans le formulaire
   const showOrHiddenPwd = () => {
+    setViewPassword(!viewPassword);
     if (viewPassword) {
-      input.current.type = "text";
+      document.getElementById("register__pwd").type = "text";
       setBtnPassword("hidden");
     } else {
-      input.current.type = "password";
+      document.getElementById("register__pwd").type = "password";
       setBtnPassword("show");
     }
   };
-
-  //   à chaque fois viewPassword change, j'appelle la fonction showOrHiddenPwd
-  useEffect(() => {
-    showOrHiddenPwd();
-  }, [viewPassword]);
 
   return (
     <main className={styles.register}>
@@ -49,44 +66,70 @@ const Register = () => {
         <h1 className={styles.register__header__h1}>
           Join Linkedin now it's free!
         </h1>
-        <form className={styles.register__form}>
-          <div className={styles.register__form__input__container}>
-            <input
-              type="email"
-              placeholder="Email or Phone"
-              className={styles.register__form__input}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className={styles.register__form__input__container}>
-            <input
-              type="text"
-              placeholder="Name"
-              className={styles.register__form__input}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className={styles.register__form__input__container}>
-            <input
-              ref={input}
-              type="password"
-              placeholder="Password (6 or more characters)"
-              className={styles.register__form__input}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              type="button"
-              className={styles.register__form__pwd__btn}
-              onClick={() => setViewPassword(!viewPassword)}
-            >
-              {btnPassword}
-            </button>
-          </div>
-          <button
-            type="submit"
-            className={styles.register__form__btn}
-            onClick={sendData}
-          >
+        <form
+          className={styles.register__form}
+          onSubmit={handleSubmit(onSubmitForm)}
+        >
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <div>
+                <input
+                  type="email"
+                  placeholder="Email or Phone"
+                  value={value}
+                  className={!!error ? `${styles.register__form__input} ${styles.error}` : styles.register__form__input}
+                  onChange={onChange}
+                />
+                {!!error && <p className={styles.register__form__error__msg}>{error?.message}</p>}
+              </div>
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="name"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <div>
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={value}
+                  className={!!error ? `${styles.register__form__input} ${styles.error}` : styles.register__form__input}
+                  onChange={onChange}
+                />
+                {!!error && <p className={styles.register__form__error__msg}>{error?.message}</p>}
+              </div>
+            )}
+          />
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <div>
+                <div className={!!error ? `${styles.register__form__input__pwd__container} ${styles.error}` : styles.register__form__input__pwd__container}>
+                  <input
+                    id="register__pwd"
+                    type="password"
+                    placeholder="Password"
+                    value={value}
+                    className={styles.register__form__input__pwd}
+                    onChange={onChange}
+                  />
+                  <button
+                    type="button"
+                    className={styles.register__form__pwd__btn}
+                    onClick={showOrHiddenPwd}
+                  >
+                    {btnPassword}
+                  </button>
+                </div>
+                {!!error && <p className={styles.register__form__error__msg}>{error?.message}</p>}
+              </div>
+            )}
+          />
+          <button type="submit" className={styles.register__form__btn}>
             Continue
           </button>
         </form>

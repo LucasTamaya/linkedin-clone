@@ -1,73 +1,95 @@
-.register{
+.register {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 40px;
+}
+
+.register__header__img {
+  width: 150px;
+  margin-bottom: 30px;
+}
+
+.register__text__and__form {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.register__header__h1 {
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.register__form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.register__form__input__container {
+  /* padding: 0 10px;
+  border: 1px solid rgba(128, 128, 128, 0.384);
+  border-radius: 5px; */
+}
+
+.register__form__input {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 40px;
-}
-
-.register__header__img{
-    width: 150px;
-    margin-bottom: 30px;
-}
-
-
-.register__text__and__form{
-    width: 300px;
-    margin: 0 auto;
-}
-
-.register__header__h1{
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-}
-
-.register__form{
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-}
-
-.register__form__input__container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
+    padding: 15px 10px;
     border: 1px solid rgba(128, 128, 128, 0.384);
     border-radius: 5px;
+  }
+  
+  .register__form__input.error {
+    border-color: red;
+  }
+
+.register__form__input__pwd__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 10px;
+  border: 1px solid rgba(128, 128, 128, 0.384);
+  border-radius: 5px;
 }
 
-.register__form__pwd__btn{
-    border: none;
-    background-color: transparent;
-    color: var(--main-blue);
-    cursor: pointer;
-    font-weight: 500;
-    margin-left: 3px;
+.register__form__input__pwd__container.error {
+  border-color: red;
 }
 
-.register__form__input{
-    border: none;
-    font-size: 1.3rem;
-    padding: 15px 0;
-    width: 100%;
+.register__form__error__msg{
+    color: red;
 }
 
-.register__form__input:focus{
-    outline: none;
+.register__form__pwd__btn {
+  border: none;
+  background-color: transparent;
+  color: var(--main-blue);
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 3px;
 }
 
-.register__form__btn{
-    border: none;
-    background-color: var(--main-blue);
-    padding: 15px 0;
-    border-radius: 25px;
-    color: var(--neutral-white);
-    cursor: pointer;
+.register__form__input__pwd {
+  border: none;
+  width: 100%;
 }
 
-.register__login__link{
-    font-size: 1.3rem;
-    text-align: center;
-    margin-top: 120px;
+.register__form__input:focus,
+.register__form__input__pwd:focus {
+  outline: none;
 }
 
+.register__form__btn {
+  border: none;
+  background-color: var(--main-blue);
+  padding: 15px 0;
+  border-radius: 25px;
+  color: var(--neutral-white);
+  cursor: pointer;
+}
+
+.register__login__link {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-top: 120px;
+}
