@@ -9,6 +9,8 @@ const axios = require("axios");
 
 const SignIn = () => {
   const router = useRouter();
+  // affiche une erreur, soit l'email n'existe pas, soit le mot de passe n'est pas valide
+  const [logError, setLogError] = useState("");
 
   // schema de validation de notre formulaire avec gestion d'erreurs inclus
   // en gros on stipule ici ce qu'on veut recevoir comme data de la part de l'utilisateur, et si il ne respecte pas les règles misent en place, on triger les messages d'erreur entre ()
@@ -36,10 +38,14 @@ const SignIn = () => {
         password: data.password,
       })
       .then((res) => {
-        if (res.data.status === 200) {
+        if (res.data.msg === "log") {
           router.push("/dashboard");
-        } else{
-          alert("Password or email invalid")
+        } else if (res.data.msg === "email not found") {
+          // alert("Email doesn't exists");
+          setLogError("This email doesn't exists");
+        } else {
+          // alert("Email or password invalid");
+          setLogError("Invalid password or email");
         }
       })
       .catch((err) => console.log(err.message));
@@ -146,6 +152,11 @@ const SignIn = () => {
           New to Linkedin? <Link href="/register">Join now</Link>
         </p>
       </div>
+      {logError != "" && (
+        <div className={styles.logError}>
+          <p className={styles.logError__para}>{logError}</p>
+        </div>
+      )}
     </main>
   );
 };

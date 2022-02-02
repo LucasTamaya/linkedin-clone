@@ -18,14 +18,17 @@ export default async function handler(req, res) {
   const user = await User.findOne({email: email});
   if(!user) {
     console.log("email doesn't exists")
-    return res.send({status: 500})
+    // si l'email n'existe pas
+    return res.send({msg: "email not found"})
   }
 
   if(password === user.password){
     console.log("Loged in")
-    res.send({status: 200})
+    // si l'email existe et que le mot de passe correspond
+    res.send({msg: "log"})
   } else {
     console.log("Went wrong on login")
-    res.send({status: 500})
+    // si l'email existe mais que le mot de passe ne correspond pas
+    res.send({msg: "email or pwd invalid"})
   }
 }
