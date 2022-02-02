@@ -1,12 +1,239 @@
 import styles from "../styles/Dashboard.module.css";
-
+import SearchIcon from "@mui/icons-material/Search";
+import HomeIcon from "@mui/icons-material/Home";
+import PeopleIcon from "@mui/icons-material/People";
+import ChatIcon from "@mui/icons-material/Chat";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import Brightness3Icon from "@mui/icons-material/Brightness3";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import { useState } from "react";
+import FaceIcon from "@mui/icons-material/Face";
+import PhotoSizeSelectActualIcon from "@mui/icons-material/PhotoSizeSelectActual";
+import VideocamIcon from "@mui/icons-material/Videocam";
+import WorkIcon from "@mui/icons-material/Work";
+import ArticleIcon from "@mui/icons-material/Article";
 
 const Dashboard = () => {
-    return ( 
-        <div>
-            <h1>Dashboard page</h1>
+  // va me permettre de toggle entre le theme clair et sombre
+  const [lightMode, setLightMode] = useState(true);
+
+  return (
+    <>
+      <header
+        className={
+          lightMode
+            ? `${styles.dashboardHeader}`
+            : `${styles.dashboardHeader} ${styles.dark}`
+        }
+      >
+        <div className={styles.dashboardHeader__left}>
+          <img
+            className={styles.dashboardHeader__left__img}
+            src={lightMode ? "/linkedin-icon.svg" : "/linkedin-icon-dark.svg"}
+            alt="linkedin icon"
+          />
+          <SearchIcon
+            className={
+              lightMode
+                ? `${styles.dashboardHeader__left__icon}`
+                : `${styles.dashboardHeader__left__icon} ${styles.dark}`
+            }
+          />
         </div>
-     );
-}
- 
+        <div className={styles.dashboardHeader__right}>
+          <nav>
+            <ul className={styles.dashboardHeader__navbar}>
+              <li>
+                <HomeIcon
+                  className={
+                    lightMode
+                      ? `${styles.dashboardHeader__navbar__icon} ${styles.blackIcon}`
+                      : `${styles.dashboardHeader__navbar__icon} ${styles.whiteIcon}`
+                  }
+                />
+              </li>
+              <li>
+                <PeopleIcon
+                  className={
+                    lightMode
+                      ? `${styles.dashboardHeader__navbar__icon}`
+                      : `${styles.dashboardHeader__navbar__icon} ${styles.dark}`
+                  }
+                />
+              </li>
+              <li>
+                <ChatIcon
+                  className={
+                    lightMode
+                      ? `${styles.dashboardHeader__navbar__icon}`
+                      : `${styles.dashboardHeader__navbar__icon} ${styles.dark}`
+                  }
+                />
+              </li>
+              <li>
+                <NotificationsIcon
+                  className={
+                    lightMode
+                      ? `${styles.dashboardHeader__navbar__icon}`
+                      : `${styles.dashboardHeader__navbar__icon} ${styles.dark}`
+                  }
+                />
+              </li>
+            </ul>
+          </nav>
+          <input type="checkbox" id="checkbox" className={styles.checkbox} />
+          <label
+            htmlFor="checkbox"
+            className={styles.label}
+            onClick={() => setLightMode(!lightMode)}
+          >
+            <Brightness3Icon className={styles.toggleTheme__icon} />
+            <WbSunnyIcon className={styles.toggleTheme__icon} />
+            <div className={styles.ball}></div>
+          </label>
+        </div>
+      </header>
+      <main
+        className={
+          lightMode
+            ? `${styles.mainDashboard}`
+            : `${styles.mainDashboard} ${styles.dark}`
+        }
+      >
+        <div
+          className={
+            lightMode
+              ? `${styles.userCard}`
+              : `${styles.userCard} ${styles.dark}`
+          }
+        >
+          <FaceIcon
+            className={
+              lightMode
+                ? `${styles.userCard__icon}`
+                : `${styles.userCard__icon} ${styles.dark}`
+            }
+          />
+
+          <div className={styles.userCard__contactContainer}>
+            <p
+              className={
+                lightMode
+                  ? `${styles.userCard__contactContainer__name}`
+                  : `${styles.userCard__contactContainer__name} ${styles.dark}`
+              }
+            >
+              Lucas T
+            </p>{" "}
+            {/*Récupérer le nom entré lors du login / register*/}
+            <p className={styles.userCard__contactContainer__email}>
+              lucas.tamaya@orange.fr
+            </p>{" "}
+            {/*Récupérer le mail entré lors du login / register*/}
+          </div>
+        </div>
+
+        <div
+          className={
+            lightMode
+              ? `${styles.postsContainer}`
+              : `${styles.postsContainer} ${styles.dark}`
+          }
+        >
+          <div
+            className={
+              lightMode
+                ? `${styles.startPost}`
+                : `${styles.startPost} ${styles.dark}`
+            }
+          >
+            <div className={styles.startPost__top}>
+              <FaceIcon
+                className={
+                  lightMode
+                    ? `${styles.startPost__top__icon}`
+                    : `${styles.startPost__top__icon} ${styles.dark}`
+                }
+              />
+              <input
+                type="text"
+                placeholder="Start a post"
+                className={
+                  lightMode
+                    ? `${styles.startPost__top__input}`
+                    : `${styles.startPost__top__input} ${styles.dark}`
+                }
+              />
+            </div>
+            <div className={styles.startPost__bottom}>
+              <div className={styles.startPost__bottom__iconContainer}>
+                <PhotoSizeSelectActualIcon
+                  style={{ color: "#005B96" }}
+                  className={styles.startPost__bottom__iconContainer__icon}
+                />
+                <p
+                  className={
+                    lightMode
+                      ? `${styles.startPost__bottom__iconContainer__para}`
+                      : `${styles.startPost__bottom__iconContainer__para} ${styles.dark}`
+                  }
+                >
+                  Photo
+                </p>
+              </div>
+              <div className={styles.startPost__bottom__iconContainer}>
+                <VideocamIcon
+                  style={{ color: "#79FE0C " }}
+                  className={styles.startPost__bottom__iconContainer__icon}
+                />
+                <p
+                  className={
+                    lightMode
+                      ? `${styles.startPost__bottom__iconContainer__para}`
+                      : `${styles.startPost__bottom__iconContainer__para} ${styles.dark}`
+                  }
+                >
+                  Video
+                </p>
+              </div>
+              <div className={styles.startPost__bottom__iconContainer}>
+                <WorkIcon
+                  style={{ color: "#add8e6 " }}
+                  className={styles.startPost__bottom__iconContainer__icon}
+                />
+                <p
+                  className={
+                    lightMode
+                      ? `${styles.startPost__bottom__iconContainer__para}`
+                      : `${styles.startPost__bottom__iconContainer__para} ${styles.dark}`
+                  }
+                >
+                  Job
+                </p>
+              </div>
+              <div className={styles.startPost__bottom__iconContainer}>
+                <ArticleIcon
+                  style={{ color: "#FF3232" }}
+                  className={styles.startPost__bottom__iconContainer__icon}
+                />
+                <p
+                  className={
+                    lightMode
+                      ? `${styles.startPost__bottom__iconContainer__para}`
+                      : `${styles.startPost__bottom__iconContainer__para} ${styles.dark}`
+                  }
+                >
+                  Write Article
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
+  );
+};
+
 export default Dashboard;
+
+//className={lightMode ? `${styles.}` : `${styles.} ${styles.dark}`}

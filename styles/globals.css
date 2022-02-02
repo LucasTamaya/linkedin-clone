@@ -16,9 +16,14 @@ li, ul{
     font-size: 10px;
     --main-blue: #0a66c2;
     --neutral-brown: #e7a33e;
-    --neutral-white: #ffffff;
-    --neutral-black: #191919;
+    --neutral-white: #FBFBFD;
+    --pale-white: #ededf38e;
+    --neutral-black: #231F20;
+    --dark-black: #000000;
     --neutral-grey: #666666;
+    --dark-grey: #424242;
+    --light-grey: #ababab;
+    --neutral-yellow: #f1c40f;
 }
 
 a{
