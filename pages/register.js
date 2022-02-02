@@ -1,21 +1,26 @@
 import styles from "../styles/Register.module.css";
 import Link from "next/link";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/router";
+import { Controller, useForm } from "react-hook-form"; //librairie afin de faciliter la mise en place de formulaire
+import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
+import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
 const axios = require("axios");
 
 const Register = () => {
+  // va me permettre de rediriger l'utilisateur vers le dashboard après son inscription
+  const router = useRouter();
+
   // schema de validation de notre formulaire avec gestion d'erreurs inclus
+  // en gros on stipule ici ce qu'on veut recevoir comme data de la part de l'utilisateur, et si il ne respecte pas les règles misent en place, on triger les messages d'erreur entre ()
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("You must enter a valid email address")
-      .required("You must enter your email address"),
-    name: Yup.string().required("You must enter your name"),
+      .email("You must enter a valid email address") //message d'erreur si l'email n'est pas valide
+      .required("You must enter your email address"), //message d'erreur si on ne remplit pas le champ email
+    name: Yup.string().required("You must enter your name"), //message d'erreur si on ne remplit pas le champ name
     password: Yup.string()
-      .min(6, "This password is too short")
-      .required("You must enter a password"),
+      .min(6, "This password is too short") //message d'erreur si le password fait moins de 6 caractères
+      .required("You must enter a password"), //message d'erreur si on ne remplit pas le champ password
   }).required();
 
   const {
@@ -26,19 +31,21 @@ const Register = () => {
     resolver: yupResolver(validationSchema), //on indique à react-hook-form d'utiliser notre validationSchema afin de traiter les erreurs
   });
 
-  const onSubmitForm = (data) => {
-    console.log(data);
-  };
-
   // envoit la data à notre API
-  // const sendData = (e) => {
-  //   e.preventDefault();
-  //   axios.post("http://localhost:3000/api/auth/register", {
-  //     email: email,
-  //     name: name,
-  //     password: password,
-  //   });
-  // };
+  const onSubmitForm = (data) => {
+    axios
+      .post("http://localhost:3000/api/auth/register", {
+        email: data.email,
+        name: data.name,
+        password: data.password,
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          router.push("/dashboard");
+        }
+      })
+      .catch((err) => console.log(err.message));
+  };
 
   const [viewPassword, setViewPassword] = useState(false);
   const [btnPassword, setBtnPassword] = useState("show");
@@ -76,13 +83,22 @@ const Register = () => {
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <div>
                 <input
-                  type="email"
+                  type="text"
                   placeholder="Email or Phone"
-                  value={value}
-                  className={!!error ? `${styles.register__form__input} ${styles.error}` : styles.register__form__input}
+                  // value={value}
+                  value={value || ''}
+                  className={
+                    !!error
+                      ? `${styles.register__form__input} ${styles.error}`
+                      : styles.register__form__input
+                  }
                   onChange={onChange}
                 />
-                {!!error && <p className={styles.register__form__error__msg}>{error?.message}</p>}
+                {!!error && (
+                  <p className={styles.register__form__error__msg}>
+                    {error?.message}
+                  </p>
+                )}
               </div>
             )}
           />
@@ -95,11 +111,20 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Name"
-                  value={value}
-                  className={!!error ? `${styles.register__form__input} ${styles.error}` : styles.register__form__input}
+                  // value={value}
+                  value={value || ''}
+                  className={
+                    !!error
+                      ? `${styles.register__form__input} ${styles.error}`
+                      : styles.register__form__input
+                  }
                   onChange={onChange}
                 />
-                {!!error && <p className={styles.register__form__error__msg}>{error?.message}</p>}
+                {!!error && (
+                  <p className={styles.register__form__error__msg}>
+                    {error?.message}
+                  </p>
+                )}
               </div>
             )}
           />
@@ -108,12 +133,19 @@ const Register = () => {
             name="password"
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <div>
-                <div className={!!error ? `${styles.register__form__input__pwd__container} ${styles.error}` : styles.register__form__input__pwd__container}>
+                <div
+                  className={
+                    !!error
+                      ? `${styles.register__form__input__pwd__container} ${styles.error}`
+                      : styles.register__form__input__pwd__container
+                  }
+                >
                   <input
                     id="register__pwd"
                     type="password"
                     placeholder="Password"
-                    value={value}
+                    // value={value}
+                    value={value || ''}
                     className={styles.register__form__input__pwd}
                     onChange={onChange}
                   />
@@ -125,7 +157,11 @@ const Register = () => {
                     {btnPassword}
                   </button>
                 </div>
-                {!!error && <p className={styles.register__form__error__msg}>{error?.message}</p>}
+                {!!error && (
+                  <p className={styles.register__form__error__msg}>
+                    {error?.message}
+                  </p>
+                )}
               </div>
             )}
           />

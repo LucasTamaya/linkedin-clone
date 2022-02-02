@@ -12,24 +12,17 @@ mongoose
 
 export default async function handler(req, res) {
   // récupère la data envoyée depuis le frontend, remplit le model avec la data souhaitée
-  const newUser = new User({
+  const newUser = await new User({
     email: req.body.email,
     name: req.body.name,
     password: req.body.password,
   });
 
-  try {
-    await newUser.save((err) => {
-      if (err) {
-        console.log(err.message);
-      } else {
-        console.log("data inserted in DB");
-        res.redirect(307, "/dashboard");
-      }
-    });
-  } catch (err) {
-    res.status(500).send({ error: "failed to insert data" });
-  }
+  // sauvegarde ce nouvel utilisateur dans mongoDB et renvoit un status au front afin de savoir si la sauvegarde a réussit ou échouer
+  await newUser
+    .save()
+    .then((result) => res.send({status: 200}))
+    .catch((err) => console.log(err));
 
   // sauvegarde ce nouvel utilisateur dans la base de donnée
 }
