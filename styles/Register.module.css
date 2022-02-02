@@ -26,22 +26,16 @@
   row-gap: 20px;
 }
 
-.register__form__input__container {
-  /* padding: 0 10px;
+.register__form__input {
+  width: 100%;
+  padding: 15px 10px;
   border: 1px solid rgba(128, 128, 128, 0.384);
-  border-radius: 5px; */
+  border-radius: 5px;
 }
 
-.register__form__input {
-    width: 100%;
-    padding: 15px 10px;
-    border: 1px solid rgba(128, 128, 128, 0.384);
-    border-radius: 5px;
-  }
-  
-  .register__form__input.error {
-    border-color: red;
-  }
+.register__form__input.error {
+  border-color: red;
+}
 
 .register__form__input__pwd__container {
   display: flex;
@@ -56,8 +50,8 @@
   border-color: red;
 }
 
-.register__form__error__msg{
-    color: red;
+.register__form__error__msg {
+  color: red;
 }
 
 .register__form__pwd__btn {

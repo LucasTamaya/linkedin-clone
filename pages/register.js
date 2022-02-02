@@ -85,8 +85,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Email or Phone"
-                  // value={value}
-                  value={value || ''}
+                  value={value || ""}
                   className={
                     !!error
                       ? `${styles.register__form__input} ${styles.error}`
@@ -111,8 +110,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Name"
-                  // value={value}
-                  value={value || ''}
+                  value={value || ""}
                   className={
                     !!error
                       ? `${styles.register__form__input} ${styles.error}`
@@ -144,8 +142,7 @@ const Register = () => {
                     id="register__pwd"
                     type="password"
                     placeholder="Password"
-                    // value={value}
-                    value={value || ''}
+                    value={value || ""}
                     className={styles.register__form__input__pwd}
                     onChange={onChange}
                   />
