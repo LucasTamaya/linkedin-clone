@@ -12,6 +12,9 @@ import PhotoSizeSelectActualIcon from "@mui/icons-material/PhotoSizeSelectActual
 import VideocamIcon from "@mui/icons-material/Videocam";
 import WorkIcon from "@mui/icons-material/Work";
 import ArticleIcon from "@mui/icons-material/Article";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Dashboard = () => {
   // va me permettre de toggle entre le theme clair et sombre
@@ -151,8 +154,8 @@ const Dashboard = () => {
               <FaceIcon
                 className={
                   lightMode
-                    ? `${styles.startPost__top__icon}`
-                    : `${styles.startPost__top__icon} ${styles.dark}`
+                    ? `${styles.post__icon}`
+                    : `${styles.post__icon} ${styles.dark}`
                 }
               />
               <input
@@ -224,6 +227,112 @@ const Dashboard = () => {
                   }
                 >
                   Write Article
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className={
+              lightMode ? `${styles.post}` : `${styles.post} ${styles.dark}`
+            }
+          >
+            <div className={styles.post__top}>
+              <div className={styles.post__top__left}>
+                <FaceIcon
+                  className={
+                    lightMode
+                      ? `${styles.post__icon}`
+                      : `${styles.post__icon} ${styles.dark}`
+                  }
+                />
+                <div className={styles.post__top__left__userContainer}>
+                  <p
+                    className={
+                      lightMode
+                        ? `${styles.post__top__left__userContainer__name}`
+                        : `${styles.post__top__left__userContainer__name} ${styles.dark}`
+                    }
+                  >
+                    Lucas T
+                  </p>{" "}
+                  {/* récupérer celui du login */}
+                  <p
+                    className={
+                      lightMode
+                        ? `${styles.post__top__left__userContainer__email}`
+                        : `${styles.post__top__left__userContainer__email} ${styles.dark}`
+                    }
+                  >
+                    lucas.tamaya@orange.fr
+                  </p>{" "}
+                  {/* récupérer celui du login */}
+                  <p
+                    className={
+                      lightMode
+                        ? `${styles.post__top__left__userContainer__time}`
+                        : `${styles.post__top__left__userContainer__time} ${styles.dark}`
+                    }
+                  >
+                    Timestamp en minutes
+                  </p>
+                </div>
+              </div>
+              <div className={styles.post__top__right}>
+                <MoreHorizIcon className={styles.post__top__right__icon} />
+              </div>
+            </div>
+
+            <p
+              className={
+                lightMode
+                  ? `${styles.post__textPost}`
+                  : `${styles.post__textPost} ${styles.dark}`
+              }
+            >
+              voila le texte du poste voila le texte du poste voila le texte du
+              poste voila le texte du poste voila le texte du poste voila le
+              texte du poste voila le texte du poste voila le texte du poste
+              voila le texte du poste
+            </p>
+
+            <div className={styles.post__lineSeparation}></div>
+
+            <div className={styles.post__bottom}>
+              <div className={styles.post__bottom__iconContainer}>
+                <ThumbUpAltOutlinedIcon
+                  className={
+                    lightMode
+                      ? `${styles.post__bottom__iconContainer__icon}`
+                      : `${styles.post__bottom__iconContainer__icon} ${styles.dark}`
+                  }
+                />
+                <p
+                  className={
+                    lightMode
+                      ? `${styles.post__bottom__iconContainer__para}`
+                      : `${styles.post__bottom__iconContainer__para} ${styles.dark}`
+                  }
+                >
+                  Like
+                </p>
+              </div>
+              <div className={styles.post__bottom__iconContainer}>
+                <DeleteIcon
+                  className={
+                    lightMode
+                      ? `${styles.post__bottom__iconContainer__icon}`
+                      : `${styles.post__bottom__iconContainer__icon} ${styles.dark}`
+                  }
+                />
+                <p
+                  className={
+                    lightMode
+                      ? `${styles.post__bottom__iconContainer__para}`
+                      : `${styles.post__bottom__iconContainer__para} ${styles.dark}`
+                  }
+                >
+                  Delete post
                 </p>
               </div>
             </div>
