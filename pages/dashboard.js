@@ -1,14 +1,24 @@
+export const getServerSideProps = async (context) => {
+  const res = await fetch("http://localhost:3000/api/posts");
+  const data = await res.json()
+  console.log(typeof data);
+
+  return {
+    props: {
+      data: data,
+    },
+  };
+};
+
 import styles from "../styles/Dashboard.module.css";
 import { useState } from "react";
-import FaceIcon from "@mui/icons-material/Face";
-import CloseIcon from "@mui/icons-material/Close";
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardUser from "../components/DashboardUser";
 import DashboardPosts from "../components/DashboardPosts";
 import DashboardSidebar from "../components/DashboardSidebar";
 import DashboardPopUp from "../components/DashboardPopUp";
 
-const Dashboard = () => {
+const Dashboard = ({data}) => {
   // va me permettre de toggle entre le theme clair et sombre
   const [lightMode, setLightMode] = useState(true);
 
@@ -45,7 +55,7 @@ const Dashboard = () => {
         <div className={styles.mainDashboard}>
           <DashboardUser lightMode={lightMode} />
 
-          <DashboardPosts lightMode={lightMode} openPopUp={openPopUp} />
+          <DashboardPosts data={data} lightMode={lightMode} openPopUp={openPopUp} />
 
           <DashboardSidebar lightMode={lightMode} />
         </div>

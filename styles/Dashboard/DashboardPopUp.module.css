@@ -120,6 +120,10 @@
   background-color: var(--neutral-white);
 }
 
+.popUp__input__error__msg {
+  color: red;
+}
+
 @media screen and (min-width: 1224px) {
   .popUp {
     width: 450px;

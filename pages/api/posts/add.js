@@ -11,12 +11,16 @@ mongoose
   .catch((err) => console.log(err.message));
 
 export default async function handler(req, res) {
-  // on récupères tous les posts présent dans mongoDB
-  const post = await Post.find()
-    .then((result) => {
-      console.log(result);
-      // et on les envoit à notre frontend afin d'afficher le rendu des posts avec leurs messages
-      res.status(200).send(result)
-    })
+  // récupère la data envoyée depuis le frontend, remplit le model avec la data souhaitée
+  const newPost = await new Post({
+    message: req.body.message,
+  });
+
+  // sauvegarde ce nouvel utilisateur dans mongoDB et renvoit un status au front afin de savoir si la sauvegarde a réussit ou échouer
+  await newPost
+    .save()
+    .then((result) => res.send({ status: 200 }))
     .catch((err) => console.log(err));
+
+  // sauvegarde ce nouvel utilisateur dans la base de donnée
 }
