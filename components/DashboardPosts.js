@@ -7,6 +7,7 @@ import ArticleIcon from "@mui/icons-material/Article";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
+const axios = require("axios");
 
 const DashboardPosts = ({ data, lightMode, openPopUp }) => {
   return (
@@ -109,7 +110,7 @@ const DashboardPosts = ({ data, lightMode, openPopUp }) => {
 
       {data.map((x) => (
         <div
-          key={x.id}
+          key={x._id}
           className={
             lightMode ? `${styles.post}` : `${styles.post} ${styles.dark}`
           }
@@ -161,7 +162,6 @@ const DashboardPosts = ({ data, lightMode, openPopUp }) => {
           </div>
 
           <p
-            key={x.id}
             className={
               lightMode
                 ? `${styles.post__textPost}`
@@ -192,7 +192,12 @@ const DashboardPosts = ({ data, lightMode, openPopUp }) => {
                 Like
               </p>
             </div>
-            <div className={styles.post__bottom__iconContainer}>
+            <div
+              className={styles.post__bottom__iconContainer}
+              onClick={() => {
+                axios.delete(`http://localhost:3000/api/posts/${x._id}`);
+              }}
+            >
               <DeleteIcon
                 className={
                   lightMode
