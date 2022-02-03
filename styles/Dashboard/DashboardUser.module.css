@@ -1,0 +1,56 @@
+.userCard {
+  width: 350px;
+  height: 130px;
+  /* margin: 0 auto; */
+  background-color: var(--neutral-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.userCard.dark {
+  background-color: var(--neutral-black);
+}
+
+.userCard__icon {
+  border: 2px solid var(--neutral-black);
+  padding: 10px;
+  font-size: 5rem;
+  border-radius: 50%;
+  color: var(--neutral-black);
+}
+
+.userCard__icon.dark {
+  border-color: var(--neutral-white);
+  color: var(--neutral-white);
+}
+
+.userCard__contactContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+}
+
+.userCard__contactContainer__name {
+  font-weight: 700;
+  color: var(--neutral-black);
+}
+
+.userCard__contactContainer__name.dark {
+  color: var(--neutral-white);
+}
+
+.userCard__contactContainer__email {
+  color: var(--neutral-grey);
+}
+
+@media screen and (min-width: 1224px) {
+  .userCard {
+    flex: 0.2;
+  }
+}

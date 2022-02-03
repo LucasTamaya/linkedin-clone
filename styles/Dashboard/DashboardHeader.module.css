@@ -1,0 +1,121 @@
+.dashboardHeaderBg {
+  background-color: #ffffff;
+  width: 100vw;
+  height: 9vh;
+  display: flex;
+  align-items: center;
+}
+
+.dashboardHeaderBg.dark {
+  background-color: var(--neutral-black);
+}
+
+.dashboardHeader {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s ease;
+  padding: 10px;
+}
+
+.dashboardHeader__left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.dashboardHeader__left__img {
+  cursor: pointer;
+}
+
+.dashboardHeader__left__icon {
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: var(--neutral-black);
+}
+
+.dashboardHeader__left__icon.dark {
+  color: var(--neutral-white);
+}
+
+.dashboardHeader__right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.dashboardHeader__navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 20px;
+}
+
+.dashboardHeader__navbar__icon {
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: var(--neutral-grey);
+  transition: 0.2s ease;
+}
+
+.dashboardHeader__navbar__icon:hover {
+  color: var(--neutral-black);
+}
+
+.dashboardHeader__navbar__icon.dark:hover {
+  color: var(--neutral-white);
+}
+
+.dashboardHeader__navbar__icon.blackIcon {
+  color: var(--neutral-black);
+}
+
+.dashboardHeader__navbar__icon.whiteIcon {
+  color: var(--neutral-white);
+}
+
+.checkbox {
+  display: none;
+  /* opacity: 0;
+      position: absolute; */
+}
+
+.checkbox:checked + .label {
+  background-color: var(--light-grey);
+}
+
+.label {
+  width: 50px;
+  height: 26px;
+  background-color: var(--dark-grey);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 15px;
+  position: relative;
+}
+
+.toggleTheme__icon {
+  color: var(--neutral-yellow);
+}
+
+.ball {
+  width: 22px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  height: 22px;
+  background-color: var(--neutral-white);
+  transition: 0.2s linear;
+}
+
+.checkbox:checked + .label .ball {
+  transform: translateX(24px);
+}
