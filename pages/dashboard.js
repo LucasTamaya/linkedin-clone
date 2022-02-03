@@ -23,6 +23,22 @@ const Dashboard = () => {
   // va me permettre de toggle entre le theme clair et sombre
   const [lightMode, setLightMode] = useState(true);
 
+  const openPopUp = () => {
+    document.querySelector(".Dashboard_popUpContainer__LmaX3").style.opacity =
+      "1";
+    document.querySelector(
+      ".Dashboard_popUpContainer__LmaX3"
+    ).style.pointerEvents = "initial";
+  };
+
+  const closePopUp = () => {
+    document.querySelector(".Dashboard_popUpContainer__LmaX3").style.opacity =
+      "0";
+    document.querySelector(
+      ".Dashboard_popUpContainer__LmaX3"
+    ).style.pointerEvents = "none";
+  };
+
   return (
     <>
       <header
@@ -165,6 +181,7 @@ const Dashboard = () => {
                   }
                 />
                 <button
+                  onClick={openPopUp}
                   className={
                     lightMode
                       ? `${styles.startPost__top__btn}`
@@ -428,7 +445,10 @@ const Dashboard = () => {
             >
               Create a post
             </h2>
-            <CloseIcon className={styles.popUp__top__icon} />
+            <CloseIcon
+              className={styles.popUp__top__icon}
+              onClick={closePopUp}
+            />
           </div>
           <div className={styles.popUp__user}>
             <FaceIcon
@@ -459,10 +479,24 @@ const Dashboard = () => {
               }
             ></textarea>
             <div className={styles.popUp__bottom}>
-              <input type="text" placeholder="Add a photo URL (optional)" className={lightMode ? `${styles.popUp__bottom__input}` : `${styles.popUp__bottom__input} ${styles.dark}`}
-/>
-              <button className={lightMode ? `${styles.popUp__bottom__btn}` : `${styles.popUp__bottom__btn} ${styles.dark}`}
->Post</button>
+              <input
+                type="text"
+                placeholder="Add a photo URL (optional)"
+                className={
+                  lightMode
+                    ? `${styles.popUp__bottom__input}`
+                    : `${styles.popUp__bottom__input} ${styles.dark}`
+                }
+              />
+              <button
+                className={
+                  lightMode
+                    ? `${styles.popUp__bottom__btn}`
+                    : `${styles.popUp__bottom__btn} ${styles.dark}`
+                }
+              >
+                Post
+              </button>
             </div>
           </form>
         </div>
