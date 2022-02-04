@@ -1,16 +1,10 @@
-s
-
-/* Main Dashboard */
-/*----------------------------------------------*/
 .mainDashboardBg {
   background-color: var(--pale-white);
-  min-height: 91vh;
 }
 
 .mainDashboardBg.dark {
   background-color: var(--dark-black);
 }
-/*----------------------------------------------*/
 
 .mainDashboard {
   padding: 20px;
@@ -21,11 +15,8 @@ s
   max-width: 1200px;
   margin: 0 auto;
   align-items: center;
+  min-height: 91vh;
 }
-
-/* Sidebar visible uniquement sur grand ecran */
-
-/* Pop up pour add a post */
 
 @media screen and (min-width: 1224px) {
   .mainDashboard {

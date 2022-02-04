@@ -1,7 +1,6 @@
 export const getServerSideProps = async (context) => {
   const res = await fetch("http://localhost:3000/api/posts");
-  const data = await res.json()
-  console.log(typeof data);
+  const data = await res.json();
 
   return {
     props: {
@@ -10,15 +9,22 @@ export const getServerSideProps = async (context) => {
   };
 };
 
-import styles from "../styles/Dashboard.module.css";
+import styles from "../styles/Dashboard/Dashboard.module.css";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardUser from "../components/DashboardUser";
 import DashboardPosts from "../components/DashboardPosts";
 import DashboardSidebar from "../components/DashboardSidebar";
 import DashboardPopUp from "../components/DashboardPopUp";
 
-const Dashboard = ({data}) => {
+const Dashboard = ({ data }) => {
+  const router = useRouter();
+  // fonction a fin de rafraîchir nos props à chaque ajout ou suppression
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
+
   // va me permettre de toggle entre le theme clair et sombre
   const [lightMode, setLightMode] = useState(true);
 
@@ -55,12 +61,17 @@ const Dashboard = ({data}) => {
         <div className={styles.mainDashboard}>
           <DashboardUser lightMode={lightMode} />
 
-          <DashboardPosts data={data} lightMode={lightMode} openPopUp={openPopUp} />
+          <DashboardPosts
+            data={data}
+            lightMode={lightMode}
+            openPopUp={openPopUp}
+            refreshData={refreshData}
+          />
 
           <DashboardSidebar lightMode={lightMode} />
         </div>
       </main>
-      <DashboardPopUp lightMode={lightMode} closePopUp={closePopUp} />
+      <DashboardPopUp lightMode={lightMode} closePopUp={closePopUp} refreshData={refreshData}/>
     </>
   );
 };

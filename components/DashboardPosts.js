@@ -9,7 +9,7 @@ import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 const axios = require("axios");
 
-const DashboardPosts = ({ data, lightMode, openPopUp }) => {
+const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
   return (
     <div
       className={
@@ -194,8 +194,13 @@ const DashboardPosts = ({ data, lightMode, openPopUp }) => {
             </div>
             <div
               className={styles.post__bottom__iconContainer}
-              onClick={() => {
-                axios.delete(`http://localhost:3000/api/posts/${x._id}`);
+              onClick={async () => {
+                const res = await axios.delete(
+                  `http://localhost:3000/api/posts/${x._id}`
+                );
+                if (res.status === 200) {
+                  refreshData();
+                }
               }}
             >
               <DeleteIcon

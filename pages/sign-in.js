@@ -12,6 +12,9 @@ const SignIn = () => {
   // affiche une erreur, soit l'email n'existe pas, soit le mot de passe n'est pas valide
   const [logError, setLogError] = useState("");
 
+  // affiche un message pour informer l'utilisateur que la connexion a réussit
+  const [logSuccess, setLogSuccess] = useState("");
+
   // schema de validation de notre formulaire avec gestion d'erreurs inclus
   // en gros on stipule ici ce qu'on veut recevoir comme data de la part de l'utilisateur, et si il ne respecte pas les règles misent en place, on triger les messages d'erreur entre ()
   const validationSchema = Yup.object({
@@ -39,6 +42,7 @@ const SignIn = () => {
       })
       .then((res) => {
         if (res.data.msg === "log") {
+          setLogSuccess("Successful connection");
           router.push("/dashboard");
         } else if (res.data.msg === "email not found") {
           // alert("Email doesn't exists");
@@ -88,7 +92,7 @@ const SignIn = () => {
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <div>
                 <input
-                  type="text"
+                  type="email"
                   placeholder="Email or Phone"
                   value={value || ""}
                   className={
@@ -155,6 +159,12 @@ const SignIn = () => {
       {logError != "" && (
         <div className={styles.logError}>
           <p className={styles.logError__para}>{logError}</p>
+        </div>
+      )}
+
+      {logSuccess != "" && (
+        <div className={styles.logSuccess}>
+          <p className={styles.logSuccess__para}>{logSuccess}</p>
         </div>
       )}
     </main>

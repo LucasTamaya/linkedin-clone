@@ -14,7 +14,6 @@ export default async function handler(req, res) {
   // on récupères tous les posts présent dans mongoDB
   const post = await Post.find()
     .then((result) => {
-      console.log(result);
       // et on les envoit à notre frontend afin d'afficher le rendu des posts avec leurs messages
       res.status(200).send(result)
     })

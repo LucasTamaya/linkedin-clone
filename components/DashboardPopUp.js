@@ -1,13 +1,12 @@
 import styles from "../styles/Dashboard/DashboardPopUp.module.css";
 import FaceIcon from "@mui/icons-material/Face";
 import CloseIcon from "@mui/icons-material/Close";
-import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form"; //librairie afin de faciliter la mise en place de formulaire
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
 import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
 const axios = require("axios");
 
-const DashboardPopUp = ({ lightMode, closePopUp }) => {
+const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
   const validationSchema = Yup.object({
     message: Yup.string().required("Enter a message first"), //message d'erreur si on ne remplit pas le champ message
   }).required();
@@ -21,10 +20,11 @@ const DashboardPopUp = ({ lightMode, closePopUp }) => {
   });
 
   const onSubmitForm = (data) => {
-    console.log(data);
     axios.post("http://localhost:3000/api/posts/add", {
       message: data.message,
     });
+    closePopUp();
+    refreshData(); //rafraîchit la liste des posts automatiquement sans avoir besoin de recharger totalement la page
   };
 
   return (
