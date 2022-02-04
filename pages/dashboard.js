@@ -1,5 +1,5 @@
 export const getServerSideProps = async (context) => {
-  const res = await fetch("http://localhost:3000/api/posts");
+  const res = await fetch(`${template}api/posts`);
   const data = await res.json();
 
   return {

@@ -6,6 +6,7 @@ import { Controller, useForm } from "react-hook-form"; //librairie afin de facil
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
 import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
 const axios = require("axios");
+const template = require("./helpers/template");
 
 const Register = () => {
   // va me permettre de rediriger l'utilisateur vers le dashboard après son inscription
@@ -30,11 +31,10 @@ const Register = () => {
   } = useForm({
     resolver: yupResolver(validationSchema), //on indique à react-hook-form d'utiliser notre validationSchema afin de traiter les erreurs
   });
-
   // envoit la data à notre API
   const onSubmitForm = (data) => {
     axios
-      .post("http://localhost:3000/api/auth/register", {
+      .post(`${template}api/auth/register`, {
         email: data.email,
         name: data.name,
         password: data.password,
