@@ -1,3 +1,4 @@
+import NextCors from "nextjs-cors";
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
@@ -12,6 +13,13 @@ mongoose
   .catch((err) => console.log(err.message));
 
 export default async function handler(req, res) {
+  // middle type CORS
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
   // récupère la data envoyée depuis le frontend
   const { email, name, password } = req.body;
 

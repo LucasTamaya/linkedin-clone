@@ -1,3 +1,4 @@
+import NextCors from "nextjs-cors";
 const mongoose = require("mongoose");
 const Post = require("./models/post");
 
@@ -11,6 +12,13 @@ mongoose
   .catch((err) => console.log(err.message));
 
 export default async function handler(req, res) {
+  // middle type CORS
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
   // récupère la data envoyée depuis le frontend
   const { message, name, email } = req.body;
 
@@ -21,7 +29,7 @@ export default async function handler(req, res) {
     email: email,
   });
 
-  // sauvegarde ce nouveau post dans mongoDB 
+  // sauvegarde ce nouveau post dans mongoDB
   await newPost
     .save()
     .then((result) => {
