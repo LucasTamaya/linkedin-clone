@@ -4,9 +4,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Controller, useForm } from "react-hook-form"; //librairie afin de faciliter la mise en place de formulaire
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
 import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
+import { useState, useEffect } from "react";
 const axios = require("axios");
 
 const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
+  const [name, setName] = useState();
+
+  useEffect(() => {
+    setName(localStorage.getItem("name"));
+  });
+
   const validationSchema = Yup.object({
     message: Yup.string().required("Enter a message first"), //message d'erreur si on ne remplit pas le champ message
   }).required();
@@ -67,9 +74,8 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
                 : `${styles.popUp__user__name} ${styles.dark}`
             }
           >
-            Lucas T
-          </p>{" "}
-          {/* récupérer celui depuis le login */}
+            {name} {/* insère le nom stocké dans le local storage */}
+          </p>
         </div>
         <form onSubmit={handleSubmit(onSubmitForm)}>
           <Controller

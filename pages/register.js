@@ -39,8 +39,13 @@ const Register = () => {
         name: data.name,
         password: data.password,
       })
+      // si l'utilisateur a bien été enregistrer
       .then((res) => {
         if (res.data.status === 200) {
+          // on stocke son nom et son adresse mail dans le localStorage afin de l'afficher dans son dashboard
+          localStorage.setItem("email", data.email);
+          localStorage.setItem("name", data.name);
+          // et on l'envoit vers le dashboard
           router.push("/dashboard");
         }
       })

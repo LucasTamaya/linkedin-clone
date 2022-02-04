@@ -7,9 +7,18 @@ import ArticleIcon from "@mui/icons-material/Article";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useState, useEffect } from "react";
 const axios = require("axios");
 
 const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+
+  useEffect(() => {
+    setName(localStorage.getItem("name"));
+    setEmail(localStorage.getItem("email"));
+  });
+
   return (
     <div
       className={
@@ -132,9 +141,8 @@ const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
                       : `${styles.post__top__left__userContainer__name} ${styles.dark}`
                   }
                 >
-                  Lucas T
+                  {name} {/* insère le nom stocké dans le local storage */}
                 </p>
-                {/* récupérer celui du login */}
                 <p
                   className={
                     lightMode
@@ -142,9 +150,8 @@ const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
                       : `${styles.post__top__left__userContainer__email} ${styles.dark}`
                   }
                 >
-                  lucas.tamaya@orange.fr
+                  {email} {/* insère le mail stocké dans le local storage */}
                 </p>
-                {/* récupérer celui du login */}
                 <p
                   className={
                     lightMode

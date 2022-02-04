@@ -2,8 +2,17 @@ import styles from "../styles/Dashboard/DashboardUser.module.css";
 import FaceIcon from "@mui/icons-material/Face";
 import TurnedInIcon from "@mui/icons-material/TurnedIn";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { useState, useEffect } from "react";
 
 const DashboardUser = ({ lightMode }) => {
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+
+  useEffect(() => {
+    setName(localStorage.getItem("name"));
+    setEmail(localStorage.getItem("email"));
+  });
+
   return (
     <div className={styles.dashboardLeft}>
       <div
@@ -34,13 +43,11 @@ const DashboardUser = ({ lightMode }) => {
                   : `${styles.userCard__contactContainer__name} ${styles.dark}`
               }
             >
-              Lucas T
-            </p>{" "}
-            {/*Récupérer le nom entré lors du login / register*/}
+              {name} {/*insère le nom stocké dans le local storage*/}
+            </p>
             <p className={styles.userCard__contactContainer__email}>
-              lucas.tamaya@orange.fr
-            </p>{" "}
-            {/*Récupérer le mail entré lors du login / register*/}
+              {email} {/*insère le mail stocké dans le local storage*/}
+            </p>
           </div>
         </div>
 
@@ -141,24 +148,19 @@ const DashboardUser = ({ lightMode }) => {
         <div className={styles.separationLine}></div>
 
         <div className={styles.discoverCard__discoverMore}>
-          <h3 className={
-          lightMode
-            ? `${styles.discoverCard__discoverMore__h3}`
-            : `${styles.discoverCard__discoverMore__h3} ${styles.dark}`
-        }>Discover More</h3>
+          <h3
+            className={
+              lightMode
+                ? `${styles.discoverCard__discoverMore__h3}`
+                : `${styles.discoverCard__discoverMore__h3} ${styles.dark}`
+            }
+          >
+            Discover More
+          </h3>
         </div>
-
       </div>
     </div>
   );
 };
 
 export default DashboardUser;
-
-/*
-className={
-            lightMode
-              ? `${styles.userCard__contactContainer__name}`
-              : `${styles.userCard__contactContainer__name} ${styles.dark}`
-          }
-*/

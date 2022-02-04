@@ -38,6 +38,8 @@ export default async function handler(req, res) {
   // sauvegarde ce nouvel utilisateur dans mongoDB et renvoit un status au front afin de savoir si la sauvegarde a réussit ou échouer
   const saveUser = await newUser
     .save()
-    .then((result) => res.send({ status: 200 }))
+    .then((result) => {
+      res.send({ status: 200 });
+    })
     .catch((err) => console.log(err));
 }

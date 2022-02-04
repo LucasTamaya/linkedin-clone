@@ -44,6 +44,11 @@ const SignIn = () => {
         // si connexion réussi, on informe l'utilisateur et on l'envoit vers le dashboard
         if (res.data.msg === "log") {
           setLogSuccess("Successful connection");
+          // on stocke son nom et son adresse mail dans le localStorage afin de l'afficher dans son dashboard
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("name", res.data.name);
+          console.log(res);
+
           router.push("/dashboard");
           // si l'email n'existe pas, on informe l'utilisateur
         } else if (res.data.msg === "email not found") {

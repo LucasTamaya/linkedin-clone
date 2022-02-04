@@ -71,7 +71,11 @@ const Dashboard = ({ data }) => {
           <DashboardSidebar lightMode={lightMode} />
         </div>
       </main>
-      <DashboardPopUp lightMode={lightMode} closePopUp={closePopUp} refreshData={refreshData}/>
+      <DashboardPopUp
+        lightMode={lightMode}
+        closePopUp={closePopUp}
+        refreshData={refreshData}
+      />
     </>
   );
 };
