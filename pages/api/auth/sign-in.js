@@ -12,6 +12,9 @@ mongoose
   .catch((err) => console.log(err.message));
 
 export default async function handler(req, res) {
+  // fixe l'erreur CORS
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   
   // récupère la data envoyée depuis le frontend
   const { email, password } = req.body;
