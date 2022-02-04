@@ -1,12 +1,19 @@
-.userCard {
+.dashboardLeft {
   width: 350px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.userCard {
+  width: 100%;
   height: 100%;
   background-color: var(--neutral-white);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  /* padding: 10px; */
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -161,21 +168,68 @@
   color: var(--neutral-white);
 }
 
+.discoverCard {
+  display: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  flex-direction: column;
+  background-color: var(--neutral-white);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.discoverCard.dark {
+  background-color: var(--neutral-black);
+}
+
+.discoverCard__linksContainer {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 10px;
+}
+
+.discoverCard__linksContainer__link {
+  color: var(--main-blue);
+  font-weight: 700;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.discoverCard__discoverMore {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.discoverCard__discoverMore__h3 {
+  font-size: 1.7rem;
+  color: var(--neutral-black);
+  cursor: pointer;
+}
+
+.discoverCard__discoverMore__h3.dark {
+  color: var(--neutral-white);
+}
+
 @media screen and (min-width: 1224px) {
-  .userCard {
+  /* .userCard {
+    flex: 0.2;
+    height: 100%;
+  } */
+
+  .dashboardLeft {
     flex: 0.2;
     height: 100%;
   }
 
-  .userCard__views {
-    display: flex;
-  }
-
-  .userCard__premium {
-    display: flex;
-  }
-
-  .userCard__items {
+  .userCard__views,
+  .userCard__premium,
+  .userCard__items,
+  .discoverCard {
     display: flex;
   }
 
