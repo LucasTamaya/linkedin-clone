@@ -81,12 +81,12 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
             {name} {/* insère le nom stocké dans le local storage */}
           </p>
         </div>
-        <form onSubmit={handleSubmit(onSubmitForm)}>
+        <form onSubmit={handleSubmit(onSubmitForm)} className={styles.popUp_form}>
           <Controller
             control={control}
             name="message"
             render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <div>
+              <div className={styles.popUp__inputContainer}>
                 <textarea
                   type="text"
                   placeholder="What do you want to talk about"
@@ -103,29 +103,18 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
                     {error?.message}
                   </p>
                 )}
+                <button
+                  className={
+                    lightMode
+                      ? `${styles.popUp__bottom__btn}`
+                      : `${styles.popUp__bottom__btn} ${styles.dark}`
+                  }
+                >
+                  Post
+                </button>
               </div>
             )}
           />
-          <div className={styles.popUp__bottom}>
-            <input
-              type="text"
-              placeholder="Add a photo URL (optional)"
-              className={
-                lightMode
-                  ? `${styles.popUp__bottom__input}`
-                  : `${styles.popUp__bottom__input} ${styles.dark}`
-              }
-            />
-            <button
-              className={
-                lightMode
-                  ? `${styles.popUp__bottom__btn}`
-                  : `${styles.popUp__bottom__btn} ${styles.dark}`
-              }
-            >
-              Post
-            </button>
-          </div>
         </form>
       </div>
     </div>
