@@ -7,18 +7,11 @@ import ArticleIcon from "@mui/icons-material/Article";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useState, useEffect } from "react";
+import { formatDistanceToNow } from 'date-fns'; //librairie afin de retourner la distance entre une date donnée et maintenant
+import { parseISO } from 'date-fns'; //librairie pour formater les dates 
 const axios = require("axios");
 
 const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-
-  useEffect(() => {
-    setName(localStorage.getItem("name"));
-    setEmail(localStorage.getItem("email"));
-  });
-
   return (
     <div
       className={
@@ -141,7 +134,7 @@ const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
                       : `${styles.post__top__left__userContainer__name} ${styles.dark}`
                   }
                 >
-                  {name} {/* insère le nom stocké dans le local storage */}
+                  {x.name}
                 </p>
                 <p
                   className={
@@ -150,7 +143,7 @@ const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
                       : `${styles.post__top__left__userContainer__email} ${styles.dark}`
                   }
                 >
-                  {email} {/* insère le mail stocké dans le local storage */}
+                  {x.email}
                 </p>
                 <p
                   className={
@@ -159,7 +152,7 @@ const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
                       : `${styles.post__top__left__userContainer__time} ${styles.dark}`
                   }
                 >
-                  Timestamp en minutes
+                  {formatDistanceToNow(parseISO(x.createdAt), { addSuffix: true })} {/* parseISO afin de formater la date et addSuffix true pour ajouter les suffixes */}
                 </p>
               </div>
             </div>

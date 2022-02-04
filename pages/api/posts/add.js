@@ -11,17 +11,22 @@ mongoose
   .catch((err) => console.log(err.message));
 
 export default async function handler(req, res) {
-  // récupère la data envoyée depuis le frontend, remplit le model avec la data souhaitée
+  // récupère la data envoyée depuis le frontend
+  const { message, name, email } = req.body;
+
+  // remplit le post
   const newPost = await new Post({
-    message: req.body.message,
+    message: message,
+    name: name,
+    email: email,
   });
 
-  // sauvegarde ce nouvel utilisateur dans mongoDB et renvoit un status au front afin de savoir si la sauvegarde a réussit ou échouer
+  // sauvegarde ce nouveau post dans mongoDB 
   await newPost
     .save()
     .then((result) => {
-      console.log("Post saved in DB")
-      res.send({ status: 200 })
+      console.log("Post saved in DB");
+      res.send({ status: 200 });
     })
     .catch((err) => console.log(err));
 

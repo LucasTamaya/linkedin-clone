@@ -9,9 +9,11 @@ const axios = require("axios");
 
 const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
   const [name, setName] = useState();
+  const [email, setEmail] = useState();
 
   useEffect(() => {
     setName(localStorage.getItem("name"));
+    setEmail(localStorage.getItem("email"));
   });
 
   const validationSchema = Yup.object({
@@ -29,6 +31,8 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
   const onSubmitForm = (data) => {
     axios.post("http://localhost:3000/api/posts/add", {
       message: data.message,
+      name: name,
+      email: email,
     });
     closePopUp();
     refreshData(); //rafraîchit la liste des posts automatiquement sans avoir besoin de recharger totalement la page
@@ -129,31 +133,3 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
 };
 
 export default DashboardPopUp;
-
-/*
-<Controller
-            control={control}
-            name="message"
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <div>
-                <textarea
-                  type="text"
-                  placeholder="Email or Phone"
-                  value={value || ""}
-                  className={
-                lightMode
-                  ? `${styles.popUp__input__error}`
-                !!error ? `${popUp}`
-                  : `${styles.popUp__input__error} ${styles.dark}`
-              }
-                  onChange={onChange}
-                ></textarea>
-                {!!error && (
-                  <p className={styles.popUp__input__error__msg}>
-                    {error?.message}
-                  </p>
-                )}
-              </div>
-            )}
-          />
-*/
