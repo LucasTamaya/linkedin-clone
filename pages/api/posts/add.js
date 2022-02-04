@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const Post = require("./models/post");
+import NextCors from "nextjs-cors";
 
 // URI afin de se connecter à mongoDB
-const dbURI = process.env.DB_URI;
+const dbURI = "mongodb+srv://lucas_tamaya:Lucas2003@linkedincloneapp.4qysj.mongodb.net/LinkedinCloneDB?retryWrites=true&w=majority"
 
 // connection à notre base de donnée mongoDB
 mongoose
@@ -11,7 +12,13 @@ mongoose
   .catch((err) => console.log(err.message));
 
 export default async function handler(req, res) {
-  
+  // middle type CORS
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
   // récupère la data envoyée depuis le frontend
   const { message, name, email } = req.body;
 

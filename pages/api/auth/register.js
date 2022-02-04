@@ -4,7 +4,7 @@ const User = require("./models/user");
 const bcrypt = require("bcrypt");
 
 // URI afin de se connecter à mongoDB
-const dbURI = process.env.DB_URI;
+const dbURI = "mongodb+srv://lucas_tamaya:Lucas2003@linkedincloneapp.4qysj.mongodb.net/LinkedinCloneDB?retryWrites=true&w=majority"
 
 // connection à notre base de donnée mongoDB
 mongoose

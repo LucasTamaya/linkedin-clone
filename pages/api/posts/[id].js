@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Post = require("./models/post");
 
 // URI afin de se connecter à mongoDB
-const dbURI = process.env.DB_URI;
+const dbURI = "mongodb+srv://lucas_tamaya:Lucas2003@linkedincloneapp.4qysj.mongodb.net/LinkedinCloneDB?retryWrites=true&w=majority"
 
 // connection à notre base de donnée mongoDB
 mongoose
