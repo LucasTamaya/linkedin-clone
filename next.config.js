@@ -5,7 +5,7 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/api/auth/.sign-in',
+        source: '/api/auth/sign-in',
         destination: `${template}api/auth/.sign-in*`,
       },
     ]
