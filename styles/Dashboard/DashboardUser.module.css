@@ -1,13 +1,12 @@
 .userCard {
   width: 350px;
-  height: 130px;
-  /* margin: 0 auto; */
+  height: 100%;
   background-color: var(--neutral-white);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -16,12 +15,20 @@
   background-color: var(--neutral-black);
 }
 
+.userCard__contact {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .userCard__icon {
   border: 2px solid var(--neutral-black);
   padding: 10px;
   font-size: 5rem;
   border-radius: 50%;
   color: var(--neutral-black);
+  margin-bottom: 15px;
 }
 
 .userCard__icon.dark {
@@ -49,8 +56,130 @@
   color: var(--neutral-grey);
 }
 
+.separationLine {
+  display: none;
+  width: 100%;
+  height: 1px;
+  background-color: var(--neutral-grey);
+}
+
+.userCard__views {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 10px;
+  padding: 15px;
+}
+
+.userCard__viewsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.userCard__viewsContainer__h3 {
+  color: var(--neutral-black);
+  font-size: 1.5rem;
+}
+
+.userCard__viewsContainer__h3.dark {
+  color: var(--neutral-white);
+}
+
+.userCard__viewsContainer__number {
+  color: var(--main-blue);
+  font-weight: 500;
+}
+
+.userCard__premium {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  row-gap: 5px;
+}
+
+.userCard__premium__para {
+  font-size: 1.2rem;
+  color: var(--neutral-black);
+}
+
+.userCard__premium__para.dark {
+  color: var(--neutral-white);
+}
+
+.userCard__premiumContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 7px;
+  cursor: pointer;
+}
+
+.userCard__premiumContainer__icon {
+  font-size: 2.2rem;
+  color: var(--neutral-yellow);
+}
+
+.userCard__premiumContainer__h3 {
+  font-size: 1.5rem;
+  color: var(--neutral-black);
+}
+
+.userCard__premiumContainer__h3.dark {
+  color: var(--neutral-white);
+}
+
+.userCard__items {
+  display: none;
+  width: 100%;
+  padding: 15px;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 7px;
+  cursor: pointer;
+}
+
+.userCard__items__icon {
+  font-size: 2.8rem;
+  color: var(--neutral-black);
+}
+
+.userCard__items__icon.dark {
+  color: var(--neutral-white);
+}
+
+.userCard__items__h3 {
+  font-size: 1.5rem;
+  color: var(--neutral-black);
+}
+
+.userCard__items__h3.dark {
+  color: var(--neutral-white);
+}
+
 @media screen and (min-width: 1224px) {
   .userCard {
     flex: 0.2;
+    height: 100%;
+  }
+
+  .userCard__views {
+    display: flex;
+  }
+
+  .userCard__premium {
+    display: flex;
+  }
+
+  .userCard__items {
+    display: flex;
+  }
+
+  .separationLine {
+    display: initial;
   }
 }
