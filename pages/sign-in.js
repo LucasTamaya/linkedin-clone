@@ -37,7 +37,7 @@ const SignIn = () => {
 
   const onSubmitForm = (data) => {
     axios
-      .post(`${template}api/auth/sign-in`, {
+      .post("https://linkedin-clone-lucastamaya.vercel.app/api/auth/sign-in", {
         email: data.email,
         password: data.password,
       })

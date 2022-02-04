@@ -34,7 +34,7 @@ const Register = () => {
   // envoit la data à notre API
   const onSubmitForm = (data) => {
     axios
-      .post(`${template}api/auth/register`, {
+      .post("https://linkedin-clone-lucastamaya.vercel.app/api/auth/register", {
         email: data.email,
         name: data.name,
         password: data.password,

@@ -73,7 +73,7 @@ const Dashboard = ({ data }) => {
 export default Dashboard;
 
 export const getServerSideProps = async (context) => {
-  const res = await fetch(`${template}api/posts`);
+  const res = await fetch("https://linkedin-clone-lucastamaya.vercel.app/api/posts");
   const data = await res.json();
 
   return {
