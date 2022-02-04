@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("./models/user");
+const bcrypt = require("bcrypt");
 
 // URI afin de se connecter à mongoDB
 const dbURI = process.env.DB_URI;
@@ -11,18 +12,32 @@ mongoose
   .catch((err) => console.log(err.message));
 
 export default async function handler(req, res) {
-  // récupère la data envoyée depuis le frontend, remplit le model avec la data souhaitée
+  // récupère la data envoyée depuis le frontend
+  const { email, name, password } = req.body;
+
+  // test afin de vérifier si l'email existe deja
+  const existingEmail = await User.findOne({
+    email: email,
+  });
+
+  if (existingEmail) {
+    return res.status(400).json({ msg: "existing email" });
+  }
+
+  // hashing du mot de passe avec bcrypt
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(password, salt);
+
+  // crée le nouvel utilisateur
   const newUser = await new User({
-    email: req.body.email,
-    name: req.body.name,
-    password: req.body.password,
+    email: email,
+    name: name,
+    password: hashPassword,
   });
 
   // sauvegarde ce nouvel utilisateur dans mongoDB et renvoit un status au front afin de savoir si la sauvegarde a réussit ou échouer
-  await newUser
+  const saveUser = await newUser
     .save()
-    .then((result) => res.send({status: 200}))
+    .then((result) => res.send({ status: 200 }))
     .catch((err) => console.log(err));
-
-  // sauvegarde ce nouvel utilisateur dans la base de donnée
 }

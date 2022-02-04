@@ -1,6 +1,6 @@
 import styles from "../styles/SignIn.module.css";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form"; //librairie afin de faciliter la mise en place de formulaire
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
@@ -41,15 +41,16 @@ const SignIn = () => {
         password: data.password,
       })
       .then((res) => {
+        // si connexion réussi, on informe l'utilisateur et on l'envoit vers le dashboard
         if (res.data.msg === "log") {
           setLogSuccess("Successful connection");
           router.push("/dashboard");
+          // si l'email n'existe pas, on informe l'utilisateur
         } else if (res.data.msg === "email not found") {
-          // alert("Email doesn't exists");
           setLogError("This email doesn't exists");
+          // si le mot de passe n'est pas bon, on informe l'utilisateur
         } else {
-          // alert("Email or password invalid");
-          setLogError("Invalid password or email");
+          setLogError("Invalid password");
         }
       })
       .catch((err) => console.log(err.message));
@@ -93,7 +94,7 @@ const SignIn = () => {
               <div>
                 <input
                   type="email"
-                  placeholder="Email or Phone"
+                  placeholder="Email"
                   value={value || ""}
                   className={
                     !!error

@@ -83,8 +83,8 @@ const Register = () => {
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <div>
                 <input
-                  type="text"
-                  placeholder="Email or Phone"
+                  type="email"
+                  placeholder="Email"
                   value={value || ""}
                   className={
                     !!error

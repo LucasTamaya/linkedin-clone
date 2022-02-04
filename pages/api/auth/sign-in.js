@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("./models/user");
+const bcrypt = require("bcrypt");
 
 // URI afin de se connecter à mongoDB
 const dbURI = process.env.DB_URI;
@@ -11,24 +12,23 @@ mongoose
   .catch((err) => console.log(err.message));
 
 export default async function handler(req, res) {
-  // récupère la data envoyée depuis le frontend, remplit le model avec la data souhaitée
-  const email = req.body.email;
-  const password = req.body.password;
-  
-  const user = await User.findOne({email: email});
-  if(!user) {
-    console.log("email doesn't exists")
+  // récupère la data envoyée depuis le frontend
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email: email });
+  if (!user) {
     // si l'email n'existe pas
-    return res.send({msg: "email not found"})
+    return res.send({ msg: "email not found" });
   }
 
-  if(password === user.password){
-    console.log("Loged in")
+  // hash le password et le compare avec celui enregistré dans la base de donnée
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (isMatch) {
     // si l'email existe et que le mot de passe correspond
-    res.send({msg: "log"})
+    res.send({ msg: "log" });
   } else {
-    console.log("Went wrong on login")
     // si l'email existe mais que le mot de passe ne correspond pas
-    res.send({msg: "email or pwd invalid"})
+    res.send({ msg: "email or pwd invalid" });
   }
 }
