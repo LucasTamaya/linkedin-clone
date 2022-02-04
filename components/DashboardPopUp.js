@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form"; //librairie afin de facil
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
 import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
 import { useState, useEffect } from "react";
+const template = require("../helpers/template");
 const axios = require("axios");
 
 const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
@@ -29,7 +30,7 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
   });
 
   const onSubmitForm = (data) => {
-    axios.post("http://localhost:3000/api/posts/add", {
+    axios.post(`${template}api/posts/add`, {
       message: data.message,
       name: name,
       email: email,

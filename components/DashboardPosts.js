@@ -9,6 +9,7 @@ import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { formatDistanceToNow } from 'date-fns'; //librairie afin de retourner la distance entre une date donnée et maintenant
 import { parseISO } from 'date-fns'; //librairie pour formater les dates 
+const template = require("../helpers/template");
 const axios = require("axios");
 
 const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
@@ -196,7 +197,7 @@ const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
               className={styles.post__bottom__iconContainer}
               onClick={async () => {
                 const res = await axios.delete(
-                  `http://localhost:3000/api/posts/${x._id}`
+                  `${template}api/posts/${x._id}`
                 );
                 if (res.status === 200) {
                   refreshData();
