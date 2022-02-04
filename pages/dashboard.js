@@ -1,14 +1,3 @@
-export const getServerSideProps = async (context) => {
-  const res = await fetch(`${template}api/posts`);
-  const data = await res.json();
-
-  return {
-    props: {
-      data: data,
-    },
-  };
-};
-
 import styles from "../styles/Dashboard/Dashboard.module.css";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -17,6 +6,7 @@ import DashboardUser from "../components/DashboardUser";
 import DashboardPosts from "../components/DashboardPosts";
 import DashboardSidebar from "../components/DashboardSidebar";
 import DashboardPopUp from "../components/DashboardPopUp";
+const template = require("../helpers/template");
 
 const Dashboard = ({ data }) => {
   const router = useRouter();
@@ -81,3 +71,14 @@ const Dashboard = ({ data }) => {
 };
 
 export default Dashboard;
+
+export const getServerSideProps = async (context) => {
+  const res = await fetch(`${template}api/posts`);
+  const data = await res.json();
+
+  return {
+    props: {
+      data: data,
+    },
+  };
+};
