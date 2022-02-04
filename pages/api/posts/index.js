@@ -1,4 +1,3 @@
-import NextCors from "nextjs-cors";
 const mongoose = require("mongoose");
 const Post = require("./models/post");
 
@@ -12,13 +11,7 @@ mongoose
   .catch((err) => console.log(err.message));
 
 export default async function handler(req, res) {
-  // middle type CORS
-  await NextCors(req, res, {
-    // Options
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: "*",
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  });
+  
   // on récupères tous les posts présent dans mongoDB
   const post = await Post.find()
     .then((result) => {
