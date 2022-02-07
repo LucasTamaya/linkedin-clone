@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form"; //librairie afin de facil
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
 import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
 const axios = require("axios");
-const template = require("../helpers/template");
+const template = require("../util/template");
 
 const Register = () => {
   // va me permettre de rediriger l'utilisateur vers le dashboard après son inscription
@@ -34,14 +34,15 @@ const Register = () => {
   // envoit la data à notre API
   const onSubmitForm = (data) => {
     axios
-      .post("https://linkedin-clone-lucastamaya.vercel.app/api/auth/register", {
+      .post("http://localhost:3000/api/auth/register", {
         email: data.email,
         name: data.name,
         password: data.password,
       })
       // si l'utilisateur a bien été enregistrer
       .then((res) => {
-        if (res.data.status === 200) {
+        console.log(res)
+        if (res.status === 200) {
           // on stocke son nom et son adresse mail dans le localStorage afin de l'afficher dans son dashboard
           localStorage.setItem("email", data.email);
           localStorage.setItem("name", data.name);

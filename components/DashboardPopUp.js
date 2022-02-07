@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form"; //librairie afin de facil
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
 import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
 import { useState, useEffect } from "react";
-const template = require("../helpers/template");
+const template = require("../util/template");
 const axios = require("axios");
 
 const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
@@ -29,14 +29,18 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
     resolver: yupResolver(validationSchema), //on indique à react-hook-form d'utiliser notre validationSchema afin de traiter les erreurs
   });
 
-  const onSubmitForm = (data) => {
-    axios.post(`${template}api/posts/add`, {
+  const onSubmitForm = async (data) => {
+    const res = await axios.post("http://localhost:3000/api/posts/add", {
       message: data.message,
       name: name,
       email: email,
     });
-    closePopUp();
-    refreshData(); //rafraîchit la liste des posts automatiquement sans avoir besoin de recharger totalement la page
+    if(res.status === 200){
+      closePopUp();
+      refreshData(); //rafraîchit la liste des posts automatiquement sans avoir besoin de recharger totalement la page
+    } else {
+      console.log("erreur dans l'ajout du nouveau post")
+    }
   };
 
   return (

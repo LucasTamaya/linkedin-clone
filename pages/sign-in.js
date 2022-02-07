@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form"; //librairie afin de facil
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
 import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
 const axios = require("axios");
-const template = require("../helpers/template");
+const template = require("../util/template");
 
 const SignIn = () => {
   const router = useRouter();
@@ -35,24 +35,23 @@ const SignIn = () => {
     resolver: yupResolver(validationSchema), //on indique à react-hook-form d'utiliser notre validationSchema afin de traiter les erreurs
   });
 
-  const onSubmitForm = (data) => {
-    axios
-      .post("https://linkedin-clone-lucastamaya.vercel.app/api/auth/sign-in", {
+  const onSubmitForm = async (data) => {
+    const signIn = await axios
+      .post("http://localhost:3000/api/auth/sign-in", {
         email: data.email,
         password: data.password,
       })
       .then((res) => {
         // si connexion réussi, on informe l'utilisateur et on l'envoit vers le dashboard
-        if (res.data.msg === "log") {
+        if (res.data.success === true) {
           setLogSuccess("Successful connection");
           // on stocke son nom et son adresse mail dans le localStorage afin de l'afficher dans son dashboard
           localStorage.setItem("email", res.data.email);
           localStorage.setItem("name", res.data.name);
-          console.log(res);
 
           router.push("/dashboard");
           // si l'email n'existe pas, on informe l'utilisateur
-        } else if (res.data.msg === "email not found") {
+        } else if (res.data.error === "email") {
           setLogError("This email doesn't exists");
           // si le mot de passe n'est pas bon, on informe l'utilisateur
         } else {

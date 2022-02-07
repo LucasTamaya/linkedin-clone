@@ -1,29 +1,22 @@
-const mongoose = require("mongoose");
-const Post = require("./models/post");
 import NextCors from "nextjs-cors";
-
-// URI afin de se connecter à mongoDB
-const dbURI = "mongodb+srv://lucas_tamaya:Lucas2003@linkedincloneapp.4qysj.mongodb.net/LinkedinCloneDB?retryWrites=true&w=majority"
-
-// connection à notre base de donnée mongoDB
-mongoose
-  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((res) => console.log("connected to DB"))
-  .catch((err) => console.log(err.message));
+import { connectToDatabase } from "../../../util/mongodb"; //connexion à mongoDB optimisé
 
 export default async function handler(req, res) {
+  // connexion à la base de donnée
+  const { db } = await connectToDatabase();
+
   // middle type CORS
-  await NextCors(req, res, {
-    // Options
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: "*",
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  });
+  // await NextCors(req, res, {
+  //   // Options
+  //   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+  //   origin: "*",
+  //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  // });
   // on récupères tous les posts présent dans mongoDB
-  const post = await Post.find()
-    .then((result) => {
-      // et on les envoit à notre frontend afin d'afficher le rendu des posts avec leurs messages
-      res.status(200).send(result);
-    })
-    .catch((err) => console.log(err));
+  const posts = await db.collection("posts").find({}).toArray();
+  console.log(posts);
+
+  console.log("recuperation de tous les posts réussi");
+  return res.status(200).json(posts.reverse());
 }
+  

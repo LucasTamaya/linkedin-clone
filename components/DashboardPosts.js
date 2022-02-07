@@ -7,9 +7,9 @@ import ArticleIcon from "@mui/icons-material/Article";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { formatDistanceToNow } from 'date-fns'; //librairie afin de retourner la distance entre une date donnée et maintenant
-import { parseISO } from 'date-fns'; //librairie pour formater les dates 
-const template = require("../helpers/template");
+import { formatDistanceToNow } from "date-fns"; //librairie afin de retourner la distance entre une date donnée et maintenant
+import { parseISO } from "date-fns"; //librairie pour formater les dates
+const template = require("../util/template");
 const axios = require("axios");
 
 const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
@@ -111,119 +111,122 @@ const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
         </div>
       </div>
 
-      {data.map((x) => (
-        <div
-          key={x._id}
-          className={
-            lightMode ? `${styles.post}` : `${styles.post} ${styles.dark}`
-          }
-        >
-          <div className={styles.post__top}>
-            <div className={styles.post__top__left}>
-              <FaceIcon
-                className={
-                  lightMode
-                    ? `${styles.post__icon}`
-                    : `${styles.post__icon} ${styles.dark}`
-                }
-              />
-              <div className={styles.post__top__left__userContainer}>
+      {data &&
+        data.map((x) => (
+          <div
+            key={x._id}
+            className={
+              lightMode ? `${styles.post}` : `${styles.post} ${styles.dark}`
+            }
+          >
+            <div className={styles.post__top}>
+              <div className={styles.post__top__left}>
+                <FaceIcon
+                  className={
+                    lightMode
+                      ? `${styles.post__icon}`
+                      : `${styles.post__icon} ${styles.dark}`
+                  }
+                />
+                <div className={styles.post__top__left__userContainer}>
+                  <p
+                    className={
+                      lightMode
+                        ? `${styles.post__top__left__userContainer__name}`
+                        : `${styles.post__top__left__userContainer__name} ${styles.dark}`
+                    }
+                  >
+                    {x.name}
+                  </p>
+                  <p
+                    className={
+                      lightMode
+                        ? `${styles.post__top__left__userContainer__email}`
+                        : `${styles.post__top__left__userContainer__email} ${styles.dark}`
+                    }
+                  >
+                    {x.email}
+                  </p>
+                  <p
+                    className={
+                      lightMode
+                        ? `${styles.post__top__left__userContainer__time}`
+                        : `${styles.post__top__left__userContainer__time} ${styles.dark}`
+                    }
+                  >
+                    {formatDistanceToNow(parseISO(x.ts), { addSuffix: true })}{" "}
+                    {/* parseISO afin de formater la date et addSuffix true pour ajouter les suffixes */}
+                  </p>
+                </div>
+              </div>
+              <div className={styles.post__top__right}>
+                <MoreHorizIcon className={styles.post__top__right__icon} />
+              </div>
+            </div>
+
+            <p
+              className={
+                lightMode
+                  ? `${styles.post__textPost}`
+                  : `${styles.post__textPost} ${styles.dark}`
+              }
+            >
+              {x.message}
+            </p>
+
+            <div className={styles.post__lineSeparation}></div>
+
+            <div className={styles.post__bottom}>
+              <div className={styles.post__bottom__iconContainer}>
+                <ThumbUpAltOutlinedIcon
+                  className={
+                    lightMode
+                      ? `${styles.post__bottom__iconContainer__icon}`
+                      : `${styles.post__bottom__iconContainer__icon} ${styles.dark}`
+                  }
+                />
                 <p
                   className={
                     lightMode
-                      ? `${styles.post__top__left__userContainer__name}`
-                      : `${styles.post__top__left__userContainer__name} ${styles.dark}`
+                      ? `${styles.post__bottom__iconContainer__para}`
+                      : `${styles.post__bottom__iconContainer__para} ${styles.dark}`
                   }
                 >
-                  {x.name}
+                  Like
                 </p>
+              </div>
+              <div
+                className={styles.post__bottom__iconContainer}
+                onClick={async () => {
+                  console.log("delete request send");
+                  const res = await axios.delete(
+                    `http://localhost:3000/api/posts/${x._id}`
+                  );
+                  if (res.status === 200) {
+                    refreshData();
+                  }
+                }}
+              >
+                <DeleteIcon
+                  className={
+                    lightMode
+                      ? `${styles.post__bottom__iconContainer__icon}`
+                      : `${styles.post__bottom__iconContainer__icon} ${styles.dark}`
+                  }
+                />
                 <p
                   className={
                     lightMode
-                      ? `${styles.post__top__left__userContainer__email}`
-                      : `${styles.post__top__left__userContainer__email} ${styles.dark}`
+                      ? `${styles.post__bottom__iconContainer__para}`
+                      : `${styles.post__bottom__iconContainer__para} ${styles.dark}`
                   }
                 >
-                  {x.email}
-                </p>
-                <p
-                  className={
-                    lightMode
-                      ? `${styles.post__top__left__userContainer__time}`
-                      : `${styles.post__top__left__userContainer__time} ${styles.dark}`
-                  }
-                >
-                  {formatDistanceToNow(parseISO(x.createdAt), { addSuffix: true })} {/* parseISO afin de formater la date et addSuffix true pour ajouter les suffixes */}
+                  Delete post
                 </p>
               </div>
             </div>
-            <div className={styles.post__top__right}>
-              <MoreHorizIcon className={styles.post__top__right__icon} />
-            </div>
           </div>
-
-          <p
-            className={
-              lightMode
-                ? `${styles.post__textPost}`
-                : `${styles.post__textPost} ${styles.dark}`
-            }
-          >
-            {x.message}
-          </p>
-
-          <div className={styles.post__lineSeparation}></div>
-
-          <div className={styles.post__bottom}>
-            <div className={styles.post__bottom__iconContainer}>
-              <ThumbUpAltOutlinedIcon
-                className={
-                  lightMode
-                    ? `${styles.post__bottom__iconContainer__icon}`
-                    : `${styles.post__bottom__iconContainer__icon} ${styles.dark}`
-                }
-              />
-              <p
-                className={
-                  lightMode
-                    ? `${styles.post__bottom__iconContainer__para}`
-                    : `${styles.post__bottom__iconContainer__para} ${styles.dark}`
-                }
-              >
-                Like
-              </p>
-            </div>
-            <div
-              className={styles.post__bottom__iconContainer}
-              onClick={async () => {
-                const res = await axios.delete(
-                  `${template}api/posts/${x._id}`
-                );
-                if (res.status === 200) {
-                  refreshData();
-                }
-              }}
-            >
-              <DeleteIcon
-                className={
-                  lightMode
-                    ? `${styles.post__bottom__iconContainer__icon}`
-                    : `${styles.post__bottom__iconContainer__icon} ${styles.dark}`
-                }
-              />
-              <p
-                className={
-                  lightMode
-                    ? `${styles.post__bottom__iconContainer__para}`
-                    : `${styles.post__bottom__iconContainer__para} ${styles.dark}`
-                }
-              >
-                Delete post
-              </p>
-            </div>
-          </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

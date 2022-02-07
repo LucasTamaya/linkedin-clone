@@ -6,7 +6,8 @@ import DashboardUser from "../components/DashboardUser";
 import DashboardPosts from "../components/DashboardPosts";
 import DashboardSidebar from "../components/DashboardSidebar";
 import DashboardPopUp from "../components/DashboardPopUp";
-const template = require("../helpers/template");
+const template = require("../util/template");
+const axios = require("axios");
 
 const Dashboard = ({ data }) => {
   const router = useRouter();
@@ -73,8 +74,8 @@ const Dashboard = ({ data }) => {
 export default Dashboard;
 
 export const getServerSideProps = async (context) => {
-  const res = await fetch("https://linkedin-clone-lucastamaya.vercel.app/api/posts");
-  const data = await res.json();
+  const res = await axios.get("http://localhost:3000/api/posts");
+  const data = await res.data;
 
   return {
     props: {

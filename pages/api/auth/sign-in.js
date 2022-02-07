@@ -1,48 +1,55 @@
-const mongoose = require("mongoose");
-const User = require("./models/user");
-const bcrypt = require("bcrypt");
-import NextCors from "nextjs-cors";
-
-// URI afin de se connecter à mongoDB
-const dbURI =
-  "mongodb+srv://lucas_tamaya:Lucas2003@linkedincloneapp.4qysj.mongodb.net/LinkedinCloneDB?retryWrites=true&w=majority";
-
-// connection à notre base de donnée mongoDB
-mongoose
-  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((res) => console.log("connected to DB"))
-  .catch((err) => console.log(err.message));
+const bcrypt = require("bcrypt"); //hashing mot de passe
+import NextCors from "nextjs-cors"; //cors error
+import { connectToDatabase } from "../../../util/mongodb"; //connexion à mongoDB optimisé
 
 export default async function handler(req, res) {
-  await NextCors(req, res, {
-    // Options
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: "*",
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  });
+  // connexion à la base de donnée
+  const { db } = await connectToDatabase();
+
+  // CORS
+  // await NextCors(req, res, {
+  //   // Options
+  //   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+  //   origin: "*",
+  //   optionsSuccessStatus: 200,
+  // });
 
   // récupère la data envoyée depuis le frontend
   const { email, password } = req.body;
-  // va stocker le nom d'utilisateur afin de l'afficher sur son dashboard via le localStorage
-  let name;
 
-  const user = await User.findOne({ email: email });
-  if (!user) {
-    // si l'utilisateur n'existe pas
-    return res.send({ msg: "email not found" });
+  // va stocker le nom d'utilisateur
+  let name;
+  let userPassword;
+
+  // cherche si l'utilisateur existe
+  const existingUser = await db
+    .collection("users")
+    .find({ email: email })
+    .toArray();
+
+  console.log(existingUser);
+  // si utilisateur existant, on compare les mots de passe
+  if (existingUser.length >= 1) {
+    console.log(existingUser);
+    existingUser.map(async (user) => {
+      console.log("utilisateur trouvé");
+      name = user.name;
+      userPassword = user.password;
+    });
+    // si utilisateur non existant, on renvoit un message d'erreur
   } else {
-    // si l'utilisateur existe, on récupère son nom
-    name = user.name;
+    console.log("utilisateur non existant");
+    return res.status(200).send({ error: "email" });
   }
 
-  // hash le password et le compare avec celui enregistré dans la base de donnée
-  const isMatch = await bcrypt.compare(password, user.password);
-
+  const isMatch = await bcrypt.compare(password, userPassword);
+  // si les mots de passe correspondent, on renvoit un message success
   if (isMatch) {
-    // si l'utilisateur existe et que le mot de passe correspond
-    res.send({ msg: "log", email: email, name: name }); //on renvoit en plus le mail et le nom de l'utilisateur
+    console.log("mot de passe correct");
+    return res.status(200).send({ success: true, email: email, name: name });
+    // sinon, on renvoit un message d'erreur
   } else {
-    // si l'utilisateur existe mais que le mot de passe ne correspond pas
-    res.send({ msg: "email or pwd invalid" });
+    console.log("mot de passe incorrect");
+    return res.status(500).send({ error: "password" });
   }
 }
