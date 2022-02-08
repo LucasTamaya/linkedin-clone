@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form"; //librairie afin de faciliter la mise en place de formulaire
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
 import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
-import Image from 'next/image';
+import Image from "next/image";
 const axios = require("axios");
 const template = require("../util/template");
 
@@ -45,6 +45,7 @@ const SignIn = () => {
       .then((res) => {
         // si connexion réussi, on informe l'utilisateur et on l'envoit vers le dashboard
         if (res.data.success === true) {
+          setLogError(""); //réinitialise le message d'erreur
           setLogSuccess("Successful connection");
           // on stocke son nom et son adresse mail dans le localStorage afin de l'afficher dans son dashboard
           localStorage.setItem("email", res.data.email);
@@ -83,7 +84,8 @@ const SignIn = () => {
         src="/logo-with-text.svg"
         alt="linkedin text logo"
         className={styles.signIn__header__img}
-        width="150px" height="50px"
+        width="150px"
+        height="50px"
       />
       <div className={styles.signIn__text__and__form}>
         <h1 className={styles.signIn__header__h1}>Sign in</h1>

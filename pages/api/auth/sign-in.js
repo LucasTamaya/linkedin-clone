@@ -50,6 +50,6 @@ export default async function handler(req, res) {
     // sinon, on renvoit un message d'erreur
   } else {
     console.log("mot de passe incorrect");
-    return res.status(500).send({ error: "password" });
+    return res.status(200).send({ error: "password" });
   }
 }

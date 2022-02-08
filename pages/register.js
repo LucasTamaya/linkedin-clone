@@ -5,13 +5,18 @@ import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form"; //librairie afin de faciliter la mise en place de formulaire
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
 import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
-import Image from 'next/image';
+import Image from "next/image";
 const axios = require("axios");
 const template = require("../util/template");
 
 const Register = () => {
   // va me permettre de rediriger l'utilisateur vers le dashboard après son inscription
   const router = useRouter();
+  // affiche un message d'erreur si l'utilisateur existe deja
+  const [logError, setLogError] = useState("");
+
+  // affiche un message de réussite lors de la création du compte
+  const [logSuccess, setLogSuccess] = useState("");
 
   // schema de validation de notre formulaire avec gestion d'erreurs inclus
   // en gros on stipule ici ce qu'on veut recevoir comme data de la part de l'utilisateur, et si il ne respecte pas les règles misent en place, on triger les messages d'erreur entre ()
@@ -34,6 +39,7 @@ const Register = () => {
   });
   // envoit la data à notre API
   const onSubmitForm = (data) => {
+    console.log("request send");
     axios
       .post(`${template}api/auth/register`, {
         email: data.email,
@@ -42,13 +48,16 @@ const Register = () => {
       })
       // si l'utilisateur a bien été enregistrer
       .then((res) => {
-        console.log(res)
-        if (res.status === 200) {
+        if (res.data.error === false) {
+          setLogSuccess("Successful connection");
           // on stocke son nom et son adresse mail dans le localStorage afin de l'afficher dans son dashboard
           localStorage.setItem("email", data.email);
           localStorage.setItem("name", data.name);
           // et on l'envoit vers le dashboard
           router.push("/dashboard");
+        }
+        if (res.data.error === "existing user") {
+          setLogError("This email is already used");
         }
       })
       .catch((err) => console.log(err.message));
@@ -75,11 +84,12 @@ const Register = () => {
         src="/logo-with-text.svg"
         alt="linkedin text logo"
         className={styles.register__header__img}
-        width="150px" height="50px"
+        width="150px"
+        height="50px"
       />
       <div className={styles.register__text__and__form}>
         <h1 className={styles.register__header__h1}>
-          Join Linkedin now it`&apos;`s free!
+          Join Linkedin now it's free!
         </h1>
         <form
           className={styles.register__form}
@@ -178,6 +188,18 @@ const Register = () => {
           Already on Linkedin? <Link href="/sign-in">Sign in</Link>
         </p>
       </div>
+
+      {logError != "" && (
+        <div className={styles.logError}>
+          <p className={styles.logError__para}>{logError}</p>
+        </div>
+      )}
+
+      {logSuccess != "" && (
+        <div className={styles.logSuccess}>
+          <p className={styles.logSuccess__para}>{logSuccess}</p>
+        </div>
+      )}
     </main>
   );
 };

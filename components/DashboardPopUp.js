@@ -35,11 +35,12 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
       name: name,
       email: email,
     });
-    if(res.status === 200){
-      closePopUp();
+    if (res.status === 200) {
+      closePopUp(); //ferme la pop up
       refreshData(); //rafraîchit la liste des posts automatiquement sans avoir besoin de recharger totalement la page
+      document.getElementById("textarea").value = "";
     } else {
-      console.log("erreur dans l'ajout du nouveau post")
+      console.log("erreur dans l'ajout du nouveau post");
     }
   };
 
@@ -86,13 +87,17 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
             {name} {/* insère le nom stocké dans le local storage */}
           </p>
         </div>
-        <form onSubmit={handleSubmit(onSubmitForm)} className={styles.popUp_form}>
+        <form
+          onSubmit={handleSubmit(onSubmitForm)}
+          className={styles.popUp_form}
+        >
           <Controller
             control={control}
             name="message"
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <div className={styles.popUp__inputContainer}>
                 <textarea
+                  id="textarea"
                   type="text"
                   placeholder="What do you want to talk about"
                   value={value || ""}

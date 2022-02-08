@@ -23,9 +23,11 @@ export default async function handler(req, res) {
     .find({ email: email })
     .toArray();
 
+  console.log(existingUser);
+
   if (existingUser.length >= 1) {
     console.log("utilisateur déjà existant");
-    return res.status(500).send({ error: "existing user" });
+    return res.status(200).send({ error: "existing user" });
   } else {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
@@ -36,6 +38,6 @@ export default async function handler(req, res) {
     });
     console.log("nouvel utilisateur enregistré");
     console.log(newUser);
-    res.status(200).send({error: false})
+    res.status(200).send({ error: false });
   }
 }
