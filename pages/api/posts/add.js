@@ -6,12 +6,12 @@ export default async function handler(req, res) {
   const { db } = await connectToDatabase();
 
   // middle type CORS
-  // await NextCors(req, res, {
-  //   // Options
-  //   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-  //   origin: "*",
-  //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  // });
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
   // récupère la data envoyée depuis le frontend
   const { message, name, email } = req.body;
 

@@ -7,12 +7,12 @@ export default async function handler(req, res) {
   const { db } = await connectToDatabase();
 
   // CORS
-  // await NextCors(req, res, {
-  //   // Options
-  //   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-  //   origin: "*",
-  //   optionsSuccessStatus: 200,
-  // });
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200,
+  });
 
   // récupère la data envoyée depuis le frontend
   const { email, password } = req.body;
