@@ -89,7 +89,7 @@ const Register = () => {
       />
       <div className={styles.register__text__and__form}>
         <h1 className={styles.register__header__h1}>
-          Join Linkedin now it's free!
+          Join Linkedin now it&apos;s free!
         </h1>
         <form
           className={styles.register__form}
