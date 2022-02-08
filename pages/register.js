@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form"; //librairie afin de faciliter la mise en place de formulaire
 import * as Yup from "yup"; //librairie afin de faciliter la gestion d'erreur des champs de mon formulaire
 import { yupResolver } from "@hookform/resolvers/yup"; //nécessaire afin d'utiliser "react-hook-form" et "yup" ensemble
+import Image from 'next/image';
 const axios = require("axios");
 const template = require("../util/template");
 
@@ -34,7 +35,7 @@ const Register = () => {
   // envoit la data à notre API
   const onSubmitForm = (data) => {
     axios
-      .post("http://localhost:3000/api/auth/register", {
+      .post(`${template}api/auth/register`, {
         email: data.email,
         name: data.name,
         password: data.password,
@@ -70,14 +71,15 @@ const Register = () => {
 
   return (
     <main className={styles.register}>
-      <img
+      <Image
         src="/logo-with-text.svg"
         alt="linkedin text logo"
         className={styles.register__header__img}
+        width="150px" height="50px"
       />
       <div className={styles.register__text__and__form}>
         <h1 className={styles.register__header__h1}>
-          Join Linkedin now it's free!
+          Join Linkedin now it`&apos;`s free!
         </h1>
         <form
           className={styles.register__form}

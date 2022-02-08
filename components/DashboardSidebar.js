@@ -1,6 +1,7 @@
 import styles from "../styles/Dashboard/DashboardSidebar.module.css";
 import InfoIcon from "@mui/icons-material/Info";
 import CircleIcon from "@mui/icons-material/Circle";
+import Image from 'next/image';
 
 const DashboardSidebar = ({ lightMode }) => {
   return (
@@ -55,10 +56,11 @@ const DashboardSidebar = ({ lightMode }) => {
         </div>
       </div>
 
-      <img
+      <Image
         src="/Dashboard-Promo-Image.jpg"
         alt="dashboard promo image"
         className={styles.sidebar__img}
+        width='300px' height='300px'
       />
     </div>
   );

@@ -6,6 +6,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Brightness3Icon from "@mui/icons-material/Brightness3";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import Image from 'next/image';
 
 const DashboardHeader = ({ lightMode, setLightMode }) => {
   return (
@@ -18,10 +19,11 @@ const DashboardHeader = ({ lightMode, setLightMode }) => {
     >
       <div className={styles.dashboardHeader}>
         <div className={styles.dashboardHeader__left}>
-          <img
+          <Image
             className={styles.dashboardHeader__left__img}
             src={lightMode ? "/linkedin-icon.svg" : "/linkedin-icon-dark.svg"}
             alt="linkedin icon"
+            width="50px" height="50px"
           />
           <SearchIcon
             className={

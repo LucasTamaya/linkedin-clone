@@ -72,9 +72,7 @@
 }
 
 .sidebar__img {
-  width: 100%;
   border-radius: 5px;
-  margin-top: 20px;
 }
 
 @media screen and (min-width: 1224px) {
@@ -82,5 +80,6 @@
     display: flex;
     flex-direction: column;
     flex: 0.3;
+    row-gap: 20px;
   }
 }

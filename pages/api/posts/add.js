@@ -1,4 +1,3 @@
-const Post = require("../../../models/post");
 import NextCors from "nextjs-cors";
 import { connectToDatabase } from "../../../util/mongodb"; //connexion à mongoDB optimisé
 

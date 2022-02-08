@@ -1,5 +1,4 @@
 import NextCors from "nextjs-cors";
-const User = require("../../../models/user");
 const bcrypt = require("bcrypt");
 import { connectToDatabase } from "../../../util/mongodb"; //connexion à mongoDB optimisé
 

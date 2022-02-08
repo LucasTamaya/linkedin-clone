@@ -200,7 +200,7 @@ const DashboardPosts = ({ data, lightMode, openPopUp, refreshData }) => {
                 onClick={async () => {
                   console.log("delete request send");
                   const res = await axios.delete(
-                    `http://localhost:3000/api/posts/${x._id}`
+                    `${template}api/posts/${x._id}`
                   );
                   if (res.status === 200) {
                     refreshData();

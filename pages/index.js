@@ -5,15 +5,17 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import PeopleIcon from "@mui/icons-material/People";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import Image from 'next/image';
 
 export default function Landing() {
   return (
     <>
       <header className={styles.header}>
-        <img
+        <Image
           src="/logo-with-text.svg"
           alt="linkedin text logo"
           className={styles.header__img}
+          width="150px" height="50px"
         />
 
         <nav className={styles.header__navbar}>

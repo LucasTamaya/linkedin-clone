@@ -11,7 +11,7 @@ const DashboardUser = ({ lightMode }) => {
   useEffect(() => {
     setName(localStorage.getItem("name"));
     setEmail(localStorage.getItem("email"));
-  });
+  }, []);
 
   return (
     <div className={styles.dashboardLeft}>

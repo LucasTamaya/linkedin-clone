@@ -74,7 +74,7 @@ const Dashboard = ({ data }) => {
 export default Dashboard;
 
 export const getServerSideProps = async (context) => {
-  const res = await axios.get("http://localhost:3000/api/posts");
+  const res = await axios.get(`${template}api/posts`);
   const data = await res.data;
 
   return {

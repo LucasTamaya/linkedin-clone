@@ -15,7 +15,7 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
   useEffect(() => {
     setName(localStorage.getItem("name"));
     setEmail(localStorage.getItem("email"));
-  });
+  }, []);
 
   const validationSchema = Yup.object({
     message: Yup.string().required("Enter a message first"), //message d'erreur si on ne remplit pas le champ message
@@ -30,7 +30,7 @@ const DashboardPopUp = ({ lightMode, closePopUp, refreshData }) => {
   });
 
   const onSubmitForm = async (data) => {
-    const res = await axios.post("http://localhost:3000/api/posts/add", {
+    const res = await axios.post(`${template}api/posts/add`, {
       message: data.message,
       name: name,
       email: email,
