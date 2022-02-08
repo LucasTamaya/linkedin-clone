@@ -49,6 +49,7 @@ const Register = () => {
       // si l'utilisateur a bien été enregistrer
       .then((res) => {
         if (res.data.error === false) {
+          setLogError("");
           setLogSuccess("Successful connection");
           // on stocke son nom et son adresse mail dans le localStorage afin de l'afficher dans son dashboard
           localStorage.setItem("email", data.email);
